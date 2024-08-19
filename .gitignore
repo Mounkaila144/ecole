@@ -1,21 +1,8 @@
-# Ignorer les fichiers système spécifiques à macOS
-.DS_Store
 
-# Ignorer les fichiers de logs
-/application/logs/*
-!application/logs/index.html
 
-# Ignorer les caches (si vous avez un dossier cache, ajoutez-le ici)
-/application/cache/*
-!application/cache/index.html
 
-# Ignorer les sessions
-/sessions/*
-!sessions/index.html
 
-# Ignorer les téléchargements (uploads)
-/uploads/*
-!uploads/index.html
+
 
 
 
@@ -25,15 +12,6 @@
 # Ignorer les fichiers de configuration sensibles
 #application/config/database.php
 
-# Ignorer les fichiers de l'environnement local
-*.env
-.env.*
-
-# Ignorer les fichiers générés par l'environnement de développement
-*.log
-*.cache
-*.bak
-*.swp
 
 # Ignorer les fichiers spécifiques à l'IDE
 .idea/
@@ -42,8 +20,4 @@
 .vscode/
 *.code-workspace
 
-# Ignorer les fichiers temporaires et de sauvegarde
-*.tmp
-*.bak
-*.old
-*.orig
+
