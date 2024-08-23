@@ -13,6 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Execute remote SSH commands
+    - name: Setup SSH
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@185.143.102.187 'cd /var/www/ecole && git pull origin main'
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 185.143.102.187 >> ~/.ssh/known_hosts
+
+    - name: Deploy via SSH
+      run: ssh ubuntu@185.143.102.187 "cd /var/www/ecole && git pull origin main"
