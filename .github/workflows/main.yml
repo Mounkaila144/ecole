@@ -1,0 +1,18 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Déclenche le workflow sur les pushs vers la branche main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Execute remote SSH commands
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@185.143.102.187 'cd /var/www/ecole && git pull origin main'
