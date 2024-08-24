@@ -116,31 +116,30 @@ class Multibranch_model extends MY_Model
         $config['db_debug'] = false;
         $config['dbcollat'] = "utf8_general_ci";
 
-       
-
         try {
             $db_verify = $this->load->database($config, true);
             $error     = $db_verify->error();
 
             if ($error['code']) {
-              
                 return ['status'=>false,'message'=>$error['message']];
-
-                
             }
 
             $db_verify->select('sch_settings.base_url');
             $db_verify->from('sch_settings');
             $query = $db_verify->get();
-        
 
-              return ['status'=>true,'message'=>'','result'=>$query->row()];
+            // Vérifiez que la requête a retourné un résultat
+            if ($query->num_rows() > 0) {
+                return ['status'=>true,'message'=>'','result'=>$query->row()];
+            } else {
+                return ['status'=>false,'message'=>'No records found in sch_settings table.'];
+            }
 
         } catch (Exception $e) {
-             return ['status'=>false,'message'=> $this->lang->line('something_went_wrong')];
+            return ['status'=>false,'message'=> $this->lang->line('something_went_wrong')];
         }
-
     }
+
 
     /*
     This function is used to get brancl list
