@@ -37,7 +37,18 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - smart_school_network
-
+  phpmyadmin:
+    image: arm64v8/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - smart_school_network
 volumes:
   db_data:
 

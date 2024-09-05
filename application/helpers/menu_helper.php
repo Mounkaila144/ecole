@@ -163,11 +163,15 @@ if (!function_exists('main_menu_array')) {
                 'incomehead'    => array('index','edit'),             
             ),
             
-            'expense' => array(                                 
+            'expense' => array(
                 'expense'       => array('index','edit','expensesearch'),             
                 'expensehead'   => array('index','edit'),                             
             ),
-            
+             'evaluation' => array(
+                'semester'       => array('index','edit'),
+                'result'   => array('index','edit'),
+            ),
+
             'examinations' => array(                                 
                 'examgroup'     => array('index','edit','addexam'),                  
                 'exam_schedule' => array('index'),                  
@@ -202,7 +206,7 @@ if (!function_exists('main_menu_array')) {
                 'subjectgroup'  => array('index','edit'),                 
                 'subject'       => array('index','edit'),                 
                 'classes'       => array('index','edit'),                 
-                'sections'      => array('index','edit'),                 
+                'sections'      => array('index','edit'),
             ), 
             
             'human_resource' => array(                   

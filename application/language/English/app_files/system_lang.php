@@ -1,5 +1,10 @@
 <?php
 #version 6.4.0
+$lang["semester_list"] = "List of semester";
+$lang["semester_will_also_delete_all_evalutions_under_this_semester_so_be_careful_as_this_action_is_irreversible"] = "Semester will also delete all evalutions under this semester so be careful as this action is irreversible";
+$lang["add_semester"] = "Add new semester";
+$lang["semester"] = "Semester";
+$lang["evaluation"] = "Evaluation";
 
 $lang['abs'] = "ABS";	
 $lang['absent'] = "Absent";	

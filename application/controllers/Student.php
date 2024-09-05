@@ -1645,6 +1645,8 @@ class Student extends Admin_Controller
             $data['class_id']    = $this->input->post('class_id');
             $data['section_id']  = $this->input->post('section_id');
             $data['search_text'] = $this->input->post('search_text');
+            $class   = $this->input->post('class_id');
+            $section = $this->input->post('section_id');
             $resultlist          = $this->student_model->searchByClassSection($class, $section);
             $data['resultlist']  = $resultlist;
 
