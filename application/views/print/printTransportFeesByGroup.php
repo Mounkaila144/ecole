@@ -200,7 +200,7 @@
 <html lang="en">
     <head>
         <title><?php echo $this->lang->line('fees_receipt'); ?></title>
-        <link rel="stylesheet" href="<?php echo base_url(); ?>backend/bootstrap/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="<?php echo base_url(); ?>backend/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>backend/dist/css/AdminLTE.min.css">
     </head>
     <body>       

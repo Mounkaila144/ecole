@@ -6,7 +6,7 @@ VALUES (901, 'Évaluation', 'evaluation', 1, 0, '2023-08-25 12:00:00');
 INSERT INTO `permission_category` (`id`, `perm_group_id`, `name`, `short_code`, `enable_view`, `enable_add`,
                                    `enable_edit`, `enable_delete`, `created_at`)
 VALUES (9021, 901, 'Semestre', 'evaluation_semester', 1, 1, 1, 1, '2023-08-25 12:05:00'),
-       (9022, 901, 'Résultat', 'evaluation_result', 1, 1, 1, 1, '2023-08-25 12:06:00');
+       (9022, 901, 'Bulletin', 'evaluation_bulletin', 1, 1, 1, 1, '2023-08-25 12:06:00');
 
 -- Ajouter le menu principal "Évaluation" dans la barre latérale
 INSERT INTO `sidebar_menus` (`id`, `permission_group_id`, `icon`, `menu`, `activate_menu`, `lang_key`, `system_level`,
@@ -21,66 +21,13 @@ INSERT INTO `sidebar_sub_menus` (`id`, `sidebar_menu_id`, `menu`, `key`, `lang_k
                                  `addon_permission`, `is_active`, `created_at`)
 VALUES (213, 35, 'Semestre', NULL, 'semester', 'evaluation/semester', 1,
         '(\'evaluation_semester\', \'can_view\')', NULL, 'semester', 'index', 'sscbse', 1, '2023-08-25 12:15:00'),
-       (214, 35, 'Résultat', NULL, 'result', 'evaluation/result', 1,
-        '(\'evaluation_result\', \'can_view\')', NULL, 'result', 'index', 'sscbse', 1, '2023-08-25 12:16:00');
-
-
-CREATE TABLE `semesters` (
-                             `id` int(11) NOT NULL AUTO_INCREMENT,
-                             `name` varchar(255) NOT NULL,
-                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `evaluations` (
-                               `id` int(11) NOT NULL AUTO_INCREMENT,
-                               `type` varchar(255) NOT NULL,  -- Le type d'évaluation (ex: 'devoir', 'composition', etc.)
-                               `subject_id` int(11) NOT NULL, -- Référence à la matière
-                               `maxnote` float(5,2) NOT NULL, -- Note maximale pour l'évaluation
-    `class_id` int(11) NOT NULL,   -- Référence à la classe
-    `semester_id` int(11) NOT NULL, -- Référence au semestre
-    `session_id` int(11) NOT NULL,  -- Référence à la session
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`semester_id`) REFERENCES `semesters`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`subject_id`) REFERENCES `subjects`(`id`) ON DELETE CASCADE,  -- Si la table 'subjects' existe
-    FOREIGN KEY (`class_id`) REFERENCES `classes`(`id`) ON DELETE CASCADE,  -- Si la table 'classes' existe
-    FOREIGN KEY (`session_id`) REFERENCES `sessions`(`id`) ON DELETE CASCADE  -- Si la table 'sessions' existe
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `student_evaluation_notes` (
-                         `student_id` int(11) NOT NULL,    -- Référence à l'étudiant
-                         `evaluation_id` int(11) NOT NULL, -- Référence à l'évaluation
-                         `note` float(5,2) NOT NULL,      -- La note obtenue par l'étudiant
-                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (`student_id`, `evaluation_id`),
-    FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON DELETE CASCADE,  -- Si la table 'students' existe
-    FOREIGN KEY (`evaluation_id`) REFERENCES `evaluations`(`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `evaluation_class_sections` (
-                                             `id` int(11) NOT NULL AUTO_INCREMENT,  -- Identifiant unique pour chaque enregistrement
-                                             `evaluation_id` int(11) NOT NULL,  -- Référence à la table `evaluations`
-                                             `class_section_id` int(11) NOT NULL,  -- Référence à la table `class_sections`
-                                             `session_id` int(11) NOT NULL,  -- Référence à la session en cours
-                                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- Horodatage de la création
-                                             PRIMARY KEY (`id`),  -- Clé primaire
-                                             FOREIGN KEY (`evaluation_id`) REFERENCES `evaluations`(`id`) ON DELETE CASCADE,  -- Clé étrangère sur `evaluations`
-                                             FOREIGN KEY (`class_section_id`) REFERENCES `class_sections`(`id`) ON DELETE CASCADE,  -- Clé étrangère sur `class_sections`
-                                             FOREIGN KEY (`session_id`) REFERENCES `sessions`(`id`) ON DELETE CASCADE  -- Clé étrangère sur `sessions`
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+       (216, 35, 'Bulletin', NULL, 'buelletin', 'evaluation/bulletin', 1,
+        '(\'evaluation_bulletin\', \'can_view\')', NULL, 'bulletin', 'index', 'sscbse', 1, '2023-08-25 12:16:00'),
+       (214, 35, 'Coeficient', NULL, 'coeficient', 'evaluation/coeficient', 1,
+        '(\'evaluation_coeficient\', \'can_view\')', NULL, 'coeficient', 'index', 'sscbse', 1, '2023-08-25 12:15:00');
 
 
 
-
-
-
-
-CREATE TABLE `evaluation_class_sections` (
-                                             `id` int(11) NOT NULL,
-                                             `evaluation_id` int(11) NOT NULL,
-                                             `class_section_id` int(11) NOT NULL,
-                                             `session_id` int(11) NOT NULL,
-                                             `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
 CREATE TABLE `class_sections` (
                                   `id` int(11) NOT NULL,
                                   `class_id` int(11) DEFAULT NULL,
@@ -115,3 +62,72 @@ CREATE TABLE `student_session` (
                                    `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
                                    `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
+
+
+
+
+CREATE TABLE `semesters` (
+                             `id` int(11) NOT NULL AUTO_INCREMENT,
+                             `name` varchar(255) NOT NULL,
+                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `evaluations` (
+                               `id` int(11) NOT NULL AUTO_INCREMENT,
+                               `type` ENUM('interrogation', 'devoir', 'composition') NOT NULL,
+                               `subject_id` int(11) NOT NULL, -- Référence à la matière
+                               `maxnote` float(5,2) NOT NULL, -- Note maximale pour l'évaluation
+    `class_id` int(11) NOT NULL,   -- Référence à la classe
+    `semester_id` int(11) NOT NULL, -- Référence au semestre
+    `session_id` int(11) NOT NULL,  -- Référence à la session
+    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`semester_id`) REFERENCES `semesters`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`subject_id`) REFERENCES `subjects`(`id`) ON DELETE CASCADE,  -- Si la table 'subjects' existe
+    FOREIGN KEY (`class_id`) REFERENCES `classes`(`id`) ON DELETE CASCADE,  -- Si la table 'classes' existe
+    FOREIGN KEY (`session_id`) REFERENCES `sessions`(`id`) ON DELETE CASCADE  -- Si la table 'sessions' existe
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `student_evaluation_notes` (
+                         `student_id` int(11) NOT NULL,    -- Référence à l'étudiant
+                         `evaluation_id` int(11) NOT NULL, -- Référence à l'évaluation
+                         `note` float(5,2) NOT NULL,      -- La note obtenue par l'étudiant
+                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`student_id`, `evaluation_id`),
+    FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON DELETE CASCADE,  -- Si la table 'students' existe
+    FOREIGN KEY (`evaluation_id`) REFERENCES `evaluations`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `evaluation_class_sections` (
+                                             `id` int(11) NOT NULL AUTO_INCREMENT,  -- Identifiant unique pour chaque enregistrement
+                                             `evaluation_id` int(11) NOT NULL,  -- Référence à la table `evaluations`
+                                             `class_section_id` int(11) NOT NULL,  -- Référence à la table `class_sections`
+                                             `session_id` int(11) NOT NULL,  -- Référence à la session en cours
+                                             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- Horodatage de la création
+                                             PRIMARY KEY (`id`),  -- Clé primaire
+                                             FOREIGN KEY (`evaluation_id`) REFERENCES `evaluations`(`id`) ON DELETE CASCADE,  -- Clé étrangère sur `evaluations`
+                                             FOREIGN KEY (`class_section_id`) REFERENCES `class_sections`(`id`) ON DELETE CASCADE,  -- Clé étrangère sur `class_sections`
+                                             FOREIGN KEY (`session_id`) REFERENCES `sessions`(`id`) ON DELETE CASCADE  -- Clé étrangère sur `sessions`
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `class_section_subjects` (
+                                          `id` int(11) NOT NULL AUTO_INCREMENT,
+                                          `class_section_id` int(11) NOT NULL,
+                                          `subject_id` int(11) NOT NULL,
+                                          `coeficient` float NOT NULL,
+                                          PRIMARY KEY (`id`),
+                                          UNIQUE KEY `unique_class_section_subject` (`class_section_id`, `subject_id`),
+                                          FOREIGN KEY (`class_section_id`) REFERENCES `class_sections`(`id`) ON DELETE CASCADE,
+                                          FOREIGN KEY (`subject_id`) REFERENCES `subjects`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `student_conduite` (
+                                    `id` INT(11) NOT NULL AUTO_INCREMENT,
+                                    `student_id` INT(11) NOT NULL,
+                                    `semester_id` INT(11) NOT NULL,
+                                    `session_id` int(11) NOT NULL,  -- Référence à la session
+                                    `conduite` FLOAT(5,2) NOT NULL DEFAULT 18,  -- Note de conduite sur 20
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`session_id`) REFERENCES `sessions`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`semester_id`) REFERENCES `semesters`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

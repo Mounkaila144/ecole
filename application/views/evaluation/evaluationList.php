@@ -163,7 +163,7 @@
                                             // Afficher le bouton d'édition si l'utilisateur a le privilège 'can_edit'
                                             if ($this->rbac->hasPrivilege('evaluation', 'can_edit')) {
                                                 ?>
-                                                <a href="<?php echo base_url(); ?>evaluation/evaluation/edit/<?php echo $evaluation['id']; ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
+                                                <a href="<?php echo base_url(); ?>evaluation/evaluation/edit/<?php echo $evaluation['id']; ?>/<?php echo $semester_id; ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <?php
@@ -172,7 +172,7 @@
                                             // Afficher le bouton de suppression si l'utilisateur a le privilège 'can_delete'
                                             if ($this->rbac->hasPrivilege('evaluation', 'can_delete')) {
                                                 ?>
-                                                <a href="<?php echo base_url(); ?>evaluation/evaluation/delete/<?php echo $evaluation['id']; ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line("evaluation_will_also_delete_all_evalutions_under_this_evaluation_so_be_careful_as_this_action_is_irreversible"); ?>');">
+                                                <a href="<?php echo base_url(); ?>evaluation/evaluation/delete/<?php echo $evaluation['id']; ?>/<?php echo $semester_id; ?>" class="btn btn-default btn-xs" data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" onclick="return confirm('<?php echo $this->lang->line("evaluation_will_also_delete_all_evalutions_under_this_evaluation_so_be_careful_as_this_action_is_irreversible"); ?>');">
                                                     <i class="fa fa-remove"></i>
                                                 </a>
                                                 <?php
@@ -239,7 +239,7 @@
     }
 
     // Fonction pour récupérer les étudiants selon la section sélectionnée
-    function getStudentsBySectiontest(class_id) {
+    function getStudentsBySection(class_id) {
         var section_ids = [];
         $('input[name="sections[]"]:checked').each(function () {
             section_ids.push($(this).val());  // Ajouter les sections cochées
@@ -255,7 +255,7 @@
                     var student_data = "<table class='table'><thead><tr><th>Student</th><th>Note</th></tr></thead><tbody>";
                     $.each(data, function (i, obj) {
                         student_data += "<tr>";
-                        student_data += "<td>" + obj.firstname +" "+ obj.lastname +" khkdhkhdckfhfs soudhsd</td>";  // Nom de l'étudiant
+                        student_data += "<td><a href='" + base_url + "student/view/" + obj.student_id + "'>" + obj.firstname + " " + obj.lastname + "</a></td>";
                         student_data += "<td><input type='number' class='form-control' value='0' name='notes[" + obj.student_id + "]' placeholder='Enter note'></td>";  // Champ input pour la note
                         student_data += "</tr>";
                     });
@@ -266,41 +266,6 @@
                     alert("<?php echo $this->lang->line('error_occurred_please_try_again'); ?>");
                 }
             });
-        } else {
-            $('#students_list').html('');  // Si aucune section sélectionnée, effacer la liste des étudiants
-        }
-    }
-    function getStudentsBySection(class_id) {
-        var section_ids = [];
-        $('input[name="sections[]"]:checked').each(function () {
-            section_ids.push($(this).val());  // Ajouter les sections cochées
-        });
-
-        if (section_ids.length > 0) {
-            // Simuler 200 élèves
-            var data = [];
-            for (var i = 1; i <= 70; i++) {
-                data.push({
-                    student_id: i,
-                    firstname: "Student" + i,
-                    lastname: "Lastname" + i
-                });
-            }
-
-            // Affichage de la table des élèves
-            var student_data = "<div style='height: 300px; overflow-y: auto;'><table class='table table-striped table-bordered'><thead><tr>";
-            student_data += "<th style='position: sticky; top: 0; background-color: white; z-index: 1;'>Student</th>";
-            student_data += "<th style='position: sticky; top: 0; background-color: white; z-index: 1;'>Note</th>";
-            student_data += "</tr></thead><tbody>";
-            $.each(data, function (i, obj) {
-                student_data += "<tr>";
-                student_data += "<td>" + obj.firstname + " " + obj.lastname + "</td>";  // Nom de l'étudiant
-                student_data += "<td><input type='number' class='form-control' value='0' name='notes[" + obj.student_id + "]' placeholder='Enter note'></td>";  // Champ input pour la note
-                student_data += "</tr>";
-            });
-            student_data += "</tbody></table>";
-            $('#students_list').html(student_data);  // Afficher la liste des étudiants avec un champ note
-
         } else {
             $('#students_list').html('');  // Si aucune section sélectionnée, effacer la liste des étudiants
         }
