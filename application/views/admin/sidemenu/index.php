@@ -135,6 +135,7 @@ if ($this->rbac->hasPrivilege('expense', 'can_add')) {
 </div><!-- /.content-wrapper -->
 
 <!-- Modal -->
+
 <div id="menuModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -253,6 +254,13 @@ if ($this->rbac->hasPrivilege('expense', 'can_add')) {
        <small class="text-secondary">if link is for addon, Provide addon short code to check addon is registered</small>
     </div>
   </div>
+          <div class="form-group mb0">
+              <div class="col-sm-offset-3 col-sm-9">
+                  <div class="checkbox">
+                      <label><input type="checkbox" name="is_active" value="1" checked="checked"> <?php echo $this->lang->line('list_in_sidebar'); ?></label>
+                  </div>
+              </div>
+          </div>
       </div>
       <div class="modal-footer">
        <button type="submit" class="btn btn-primary btn-sm" id="load" data-action="collect" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i><?php echo $this->lang->line('processing'); ?> " autocomplete="off"> <?php echo $this->lang->line('save'); ?> </button>
@@ -497,6 +505,7 @@ $(document).on('click','.edit_sub_menu',function(){
                 },
                 success: function (data) {
                   let submenu=(data.sub_menu);
+                 // console.log(data)
                     $('#submenu_id',$('#submenuModal')).val(submenu.id);
                     $('#menu_id',$('#submenuModal')).val(submenu.sidebar_menu_id);
                     $("input[name='lang_key']",$('#submenuModal')).val(submenu.lang_key);
@@ -505,6 +514,12 @@ $(document).on('click','.edit_sub_menu',function(){
                     $("input[name='activate_controller']",$('#submenuModal')).val(submenu.activate_controller);
                     $("input[name='activate_methods']",$('#submenuModal')).val(submenu.activate_methods);
                     $("input[name='addon_permission']",$('#submenuModal')).val(submenu.addon_permission);
+// Convertir is_active en booléen : true si c'est "1", false si c'est "0"
+                    var isActive = submenu.is_active === "1";
+
+// Utiliser .prop() pour définir la case à cocher
+                    $("input[name='is_active']", $('#submenuModal')).prop('checked', isActive);
+
                     $("input[name='url']",$('#submenuModal')).val(submenu.url);
                     $('#submenuModal').modal('show');
                   $this.button('reset');

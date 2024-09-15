@@ -99,16 +99,12 @@ class Sidemenu extends Admin_Controller
             $array = array('status' => 0, 'error' => $msg);
             echo json_encode($array);
         } else {
-            $sidebar = 0;
 
             $submenu_id = $this->input->post('submenu_id');
             if ($submenu_id == "" || $submenu_id == 0) {
                 $submenu_id = 0;
             }
-            $sidebar_view = $this->input->post('sidebar_view');
-            if (isset($sidebar_view)) {
-                $sidebar = 1;
-            }
+
             $insert_array = array(
 
                 'id'                  => $submenu_id,
@@ -120,6 +116,7 @@ class Sidemenu extends Admin_Controller
                 'activate_methods'    => $this->input->post('activate_methods'),
                 'access_permissions'  => $this->input->post('access_permissions'),
                 'addon_permission'    => $this->input->post('addon_permission'),
+                'is_active'    => $this->input->post('is_active'),
                 'level'               => 1,
             );
             $resultlist = $this->sidebarmenu_model->addSubMenu($insert_array);
@@ -131,8 +128,8 @@ class Sidemenu extends Admin_Controller
     public function ajax_list_menu()
     {
         $data                 = array();
-        $data['menus']        = $this->sidebarmenu_model->getMenuwithSubmenus(0);
-        $data['active_menus'] = $this->sidebarmenu_model->getMenuwithSubmenus(1);
+        $data['menus']        = $this->sidebarmenu_model->getMenuwithSubmenus(0,$edit=1);
+        $data['active_menus'] = $this->sidebarmenu_model->getMenuwithSubmenus(1,$edit=1);
         $list  = $this->load->view('admin/sidemenu/_ajax_list_menu', $data, true);
         $array = array('status' => '1', 'error' => '', 'page' => $list);
         echo json_encode($array);

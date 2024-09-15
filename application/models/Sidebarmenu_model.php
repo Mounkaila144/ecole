@@ -162,7 +162,7 @@ class Sidebarmenu_model extends MY_Model
         }
     }
 
-    public function getMenuwithSubmenus($sidebar_display = -1)
+    public function getMenuwithSubmenus($sidebar_display = -1,$edit=0)
     {
         $this->db->select('sidebar_menus.*,permission_group.name as `permission_group_name`,permission_group.short_code as `short_code`')->from('sidebar_menus');
         $this->db->join('permission_group','permission_group.id=sidebar_menus.permission_group_id','LEFT');
@@ -181,7 +181,7 @@ class Sidebarmenu_model extends MY_Model
         if ($query->num_rows() > 0) {
             $result = $query->result();
             foreach ($result as $result_key => $result_value) {
-                $result[$result_key]->{'submenus'} = $this->getSubmenusByMenuId($result_value->id,$sidebar_display);
+                $result[$result_key]->{'submenus'} = $this->getSubmenusByMenuId($result_value->id,$sidebar_display,$edit);
 
             }
             return $result;
@@ -189,12 +189,12 @@ class Sidebarmenu_model extends MY_Model
         return false;
     }
 
-    public function getSubmenusByMenuId($menu_id,$sidebar_display= 0)
+    public function getSubmenusByMenuId($menu_id,$sidebar_display= 0,$edit=0)
     {
         $this->db->select('sidebar_sub_menus.*,permission_group.name as `permission_group_name`,permission_group.short_code as `short_code`')->from('sidebar_sub_menus');
         $this->db->join('permission_group','permission_group.id=sidebar_sub_menus.permission_group_id','LEFT');
-        $this->db->where('sidebar_menu_id', $menu_id);        
-        $this->db->where('sidebar_sub_menus.is_active',1);        
+        $this->db->where('sidebar_menu_id', $menu_id);
+        $edit===1? null:$this->db->where('sidebar_sub_menus.is_active',1);
         $this->db->order_by('level', 'asc');
         $query = $this->db->get();
         return $query->result();

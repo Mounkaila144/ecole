@@ -26,7 +26,7 @@ if (!empty($menus)) {
                             </a>
 
                             <?php if ($this->rbac->hasPrivilege('sidebar_menu', 'can_view')) {?>
-                            <a href="javascript:void(0);" data-record-id="<?php echo $menu_value->id; ?>" class="btn btn-xs edit_menu more-less-right hidden" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('edit'); ?>"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>" ><i class="more-less fa fa-pencil"></i></a>
+                            <a href="javascript:void(0);" data-record-id="<?php echo $menu_value->id; ?>" class="btn btn-xs edit_menu more-less-right hiddened" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('edit'); ?>"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>" ><i class="more-less fa fa-pencil"></i></a>
                             <?php }?>
 
             </h4>
@@ -34,7 +34,7 @@ if (!empty($menus)) {
           <div id="collapse<?php echo $menu_value->id ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
                 <?php if ($this->rbac->hasPrivilege('sidebar_menu', 'can_view')) {?>
-                <button class="btn btn-primary btn-xs pull-right mb10 add_sub_menu hidden" data-menu-id="<?php echo $menu_value->id ?>" > <?php echo $this->lang->line('add_sub_menu'); ?></button>
+                <button class="btn btn-primary btn-xs pull-right mb10 add_sub_menu hiddened" data-menu-id="<?php echo $menu_value->id ?>" > <?php echo $this->lang->line('add_sub_menu'); ?></button>
                 <?php }?>
      <div class="clearfix"></div>
                                                 <?php
@@ -47,7 +47,7 @@ foreach ($menu_value->submenus as $submenu_key => $submenu_value) {
                                                             <li id="<?php echo $submenu_value->id; ?>" class="list-group-item-sort text-left">
                                                                 <span class="sort-action">
                                                                      <?php if ($this->rbac->hasPrivilege('sidebar_menu', 'can_view')) {?>
-                                                                    <a href="javascript:void(0);" data-record-id="<?php echo $submenu_value->id; ?>" class="btn btn-xs edit_sub_menu hidden" data-toggle="tooltip"
+                                                                    <a href="javascript:void(0);" data-record-id="<?php echo $submenu_value->id; ?>" class="btn btn-xs edit_sub_menu hiddened" data-toggle="tooltip"
                                                                        data-original-title="<?php echo $this->lang->line('edit'); ?>"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>"><i class="fa fa-pencil"></i>
                                                                    </a>
                                                                      <?php }?>
@@ -103,13 +103,13 @@ if (!empty($active_menus)) {
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $menu_value->id ?>" aria-expanded="true" aria-controls="collapse<?php echo $menu_value->id ?>">
                                 <?php echo $this->lang->line($menu_value->lang_key); ?>
                             </a>
-                             <a href="javascript:void(0);" data-record-id="<?php echo $menu_value->id; ?>" class="btn btn-xs edit_menu more-less-right hidden" data-toggle="tooltip"
+                             <a href="javascript:void(0);" data-record-id="<?php echo $menu_value->id; ?>" class="btn btn-xs edit_menu more-less-right hiddened" data-toggle="tooltip"
                                                                        data-original-title="<?php echo $this->lang->line('edit'); ?>"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>" ><i class="more-less fa fa-pencil"></i></a>
             </h4>
           </div>
           <div id="collapse<?php echo $menu_value->id ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-                <button class="btn btn-primary btn-xs pull-right mb10 add_sub_menu hidden" data-menu-id="<?php echo $menu_value->id ?>" > <?php echo $this->lang->line('add_sub_menu'); ?></button>
+                <button class="btn btn-primary btn-xs pull-right mb10 add_sub_menu hiddened" data-menu-id="<?php echo $menu_value->id ?>" > <?php echo $this->lang->line('add_sub_menu'); ?></button>
      <div class="clearfix"></div>
 
                                                 <?php
@@ -123,7 +123,7 @@ foreach ($menu_value->submenus as $submenu_key => $submenu_value) {
                                                             <li id="<?php echo $submenu_value->id; ?>" class="list-group-item-sort text-left">
                                                                 <span class="sort-action">
 
-                                                                    <a href="javascript:void(0);" data-record-id="<?php echo $submenu_value->id; ?>" class="btn btn-xs edit_sub_menu hidden" data-toggle="tooltip"
+                                                                    <a href="javascript:void(0);" data-record-id="<?php echo $submenu_value->id; ?>" class="btn btn-xs edit_sub_menu hiddened" data-toggle="tooltip"
                                                                        data-original-title="<?php echo $this->lang->line('edit'); ?>"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>"><i class="fa fa-pencil"></i>
                                                                    </a>
                                                                 </span> <i class="fa fa-arrows"></i> <?php
