@@ -21,7 +21,7 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('add_coeficient'); ?></h3>
+                            <h3 class="box-title">Ajouter un coefficient</h3>
                         </div>
                         <form method="post" action="<?php echo site_url('evaluation/coeficient/index'); ?>">
 
@@ -36,7 +36,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="coeficient"><?php echo $this->lang->line('coeficient'); ?></label>
+                                <label for="coeficient">Coefficient</label>
                                 <input type="number" name="coeficient" class="form-control" value="<?php echo set_value('coeficient'); ?>" min="0" step="0.1">
                                 <span class="text-danger"><?php echo form_error('coeficient'); ?></span>
                             </div>
@@ -68,7 +68,7 @@
                                 <span class="text-danger"><?php echo form_error('sections[]'); ?></span>
                             </div>
 
-                            <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('submit'); ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('save'); ?></button>
                         </form>
                     </div>
                 </div>
@@ -82,17 +82,17 @@
             ?>">
                 <div class="box box-primary">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"><?php echo $this->lang->line('coeficient_list'); ?></h3>
+                        <h3 class="box-title titlefix">List des coefficients</h3>
                     </div>
                     <div class="box-body ">
                         <div class="table-responsive mailbox-messages overflow-visible">
-                            <div class="download_label"><?php echo $this->lang->line('coeficient_list'); ?></div>
+                            <div class="download_label">List des coefficients</div>
                             <table class="table table-striped table-bordered table-hover example">
                                 <thead>
                                 <tr>
                                     <th><?php echo $this->lang->line('subject'); ?></th>
                                     <th><?php echo $this->lang->line('class'); ?></th>
-                                    <th><?php echo $this->lang->line('coeficient'); ?></th>
+                                    <th>coefficient</th>
                                     <th class="text-right noExport"><?php echo $this->lang->line('action'); ?></th>
                                 </tr>
                                 </thead>

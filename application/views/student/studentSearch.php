@@ -92,6 +92,7 @@ $count++;
                                             <th><?php echo $this->lang->line('admission_no'); ?></th>
                                             <th><?php echo $this->lang->line('student_name'); ?></th>
                                             <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                            <th>Conduite</th>
                                             <th><?php echo $this->lang->line('class'); ?></th>
                                              <?php if ($sch_setting->father_name) {?>
                                             <th><?php echo $this->lang->line('father_name'); ?></th>
@@ -308,7 +309,8 @@ $(document).on('submit','.class_search_form',function(e){
         if ($.fn.DataTable.isDataTable('.student-list')) { // if exist datatable it will destrory first
          $('.student-list').DataTable().destroy();
        }
-        table= $('.student-list').DataTable({
+        table=
+            $('.student-list').DataTable({
         
        dom: 'Bfrtip',
           buttons: [
@@ -362,7 +364,7 @@ $(document).on('submit','.class_search_form',function(e){
                 customize: function ( win ) {
 
                     $(win.document.body).find('th').addClass('display').css('text-align', 'center');
-                    $(win.document.body).find('table').addClass('display').css('font-size', '14px');     
+                    $(win.document.body).find('table').addClass('display').css('font-size', '14px');
                     $(win.document.body).find('h1').css('text-align', 'center');
                 },
                 exportOptions: {

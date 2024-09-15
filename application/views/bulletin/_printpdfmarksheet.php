@@ -4,15 +4,13 @@
         <tr>
             <td valign="top" width="50%">
                 <strong>RÉPUBLIQUE DU NIGER</strong><br>
-                MINISTÈRE DE L’ÉDUCATION NATIONALE<br>
-                D.R.E.N DE NIAMEY<br>
-                D.D.E.N NIAMEY II<br>
-                I.E.S.G NIAMEY II
+                <?php echo $setting->address ?><br>
             </td>
             <td valign="top" width="50%" align="center">
-                <strong>COMPLEXE SCOLAIRE PRIVE MANOU CISSE</strong><br>
+                <strong><?php echo $setting->name ?></strong><br>
                 DISCIPLINE - TRAVAIL - RÉUSSITE<br>
-                TÉL: 96 48 28 44 / 90 02 03 51
+                <?php echo $setting->phone ?>
+
             </td>
         </tr>
         <tr>
@@ -50,20 +48,29 @@
         $total = 0;
         $totalcoef = 0;
         foreach ($results as $result) {
-            $moyenne = $result['moyenne_ponderee'];
+            // Si la matière est "Conduite", toutes les valeurs doivent être la même
+            if ($result['subject'] === 'Conduite') {
+                $moyenne_classe = $conduite_note;
+                $note_compo = $conduite_note;
+                $moyenne = $conduite_note;
+            } else {
+                $moyenne_classe = $result['moyenne_classe'];
+                $note_compo = $result['note_compo'];
+                $moyenne = $result['moyenne_ponderee'];
+            }
+
             $total += $moyenne * $result['coeficient'];
             $totalcoef += $result['coeficient'];
             ?>
             <tr>
                 <td style="border: 1px solid black;"><?php echo $result['subject']; ?></td>
                 <td style="border: 1px solid black;"><?php echo $result['coeficient']; ?></td>
-                <td style="border: 1px solid black;"><?php echo $result['moyenne_classe']; ?></td>
-                <td style="border: 1px solid black;"><?php echo $result['note_compo']; ?></td>
+                <td style="border: 1px solid black;"><?php echo $moyenne_classe; ?></td>
+                <td style="border: 1px solid black;"><?php echo $note_compo; ?></td>
                 <td style="border: 1px solid black;"><?php echo $moyenne; ?></td>
                 <td style="border: 1px solid black;"><?php echo $moyenne * $result['coeficient']; ?></td>
                 <td style="border: 1px solid black;">
                     <?php
-                    // Appréciation en fonction de la moyenne
                     if ($moyenne >= 18) {
                         echo "Excellent";
                     } elseif ($moyenne >= 16) {
@@ -106,15 +113,29 @@
         </table>
     </div>
 
+    <?php
+    // Calculer la moyenne générale de l'élève
+    $moyenne_generale = $total / $totalcoef;  // Par exemple
+
+    // Déterminer les valeurs dynamiques en fonction de la moyenne générale
+    $conduite = ($conduite_note >= 15) ? "Très Bonne" : (($conduite_note >= 10) ? "Bonne" : "Médiocre");
+    $travail = ($moyenne_generale >= 15) ? "Excellent" : (($moyenne_generale >= 10) ? "Moyen" : "Nul");
+    $tableau_honneur = ($moyenne_generale >= 16) ? "Oui" : "Non";
+    $assiduite = ($moyenne_generale >= 12) ? "Oui" : "Non";  // Exemple d'assiduité basée sur la moyenne
+    $retard = ($moyenne_generale < 8) ? "Oui" : "Non";  // Retard si la moyenne est très basse
+    $resultat_fin_annee = ($moyenne_generale >= 10) ? "Passe" : "Redouble";
+
+    ?>
+
     <!-- Remarks Section -->
     <div style="margin-top: 10px;">
         <table width="100%" style="border: 1px solid black; border-collapse: collapse;">
             <tr>
-                <td style="text-align:center;border: 1px solid black;"><strong>Conduite:</strong> Bonne</td>
-                <td style="text-align:center;border: 1px solid black;"><strong>Travail:</strong> Nul</td>
-                <td style="text-align:center;border: 1px solid black;"><strong>Tableau d'Honneur:</strong> Non</td>
-                <td style="text-align:center;border: 1px solid black;"><strong>Assiduité:</strong> Oui</td>
-                <td style="text-align:center;border: 1px solid black;"><strong>Retard:</strong> Non</td>
+                <td style="text-align:center;border: 1px solid black;"><strong>Conduite:</strong> <?php echo $conduite; ?></td>
+                <td style="text-align:center;border: 1px solid black;"><strong>Travail:</strong> <?php echo $travail; ?></td>
+                <td style="text-align:center;border: 1px solid black;"><strong>Tableau d'Honneur:</strong> <?php echo $tableau_honneur; ?></td>
+                <td style="text-align:center;border: 1px solid black;"><strong>Assiduité:</strong> <?php echo $assiduite; ?></td>
+                <td style="text-align:center;border: 1px solid black;"><strong>Retard:</strong> <?php echo $retard; ?></td>
             </tr>
         </table>
     </div>
@@ -123,7 +144,7 @@
     <div style="margin-top: 20px;">
         <table width="100%">
             <tr>
-                <td><strong>Résultat de fin d'année:</strong> Passe</td>
+                <td><strong>Résultat de fin d'année:</strong> <?php echo $resultat_fin_annee; ?></td>
                 <td><strong>Visa des Parents:</strong></td>
             </tr>
         </table>
@@ -132,4 +153,5 @@
             (Signature et cachet)
         </div>
     </div>
+
 </div>

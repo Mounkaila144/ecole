@@ -119,7 +119,7 @@ class Evaluation_model extends MY_Model {
 // Ajoutez un GROUP BY ici
         $this->db->group_by('evaluations.id');
 
-
+        $this->db->where('sessions.id',$this->current_session);
         // Filtrer par ID si un ID est fourni
         if ($id != null) {
             $this->db->where('evaluations.id', $id);

@@ -89,6 +89,7 @@
                                                 <th><input type="checkbox" id="select_all" /></th>
                                                 <th><?php echo $this->lang->line('student_name'); ?></th>
                                                 <th><?php echo $this->lang->line('father_name'); ?></th>
+                                                <th>Rang</th>
                                                 <th class="text-right"><?php echo $this->lang->line('action'); ?></th>
                                             </tr>
                                         </thead>
@@ -108,7 +109,18 @@
          </a>
         </td> 
                                                         <td><?php echo $student_value['lastname'];?></td>
-                                                        <td><?php 
+                                                        <td>
+                                                            <?php
+                                                            $rank = $student_value['rank'];
+                                                            // Déterminer le suffixe en fonction du rang
+                                                            if ($rank == 1) {
+                                                                echo $rank . 'ère'; // Premier
+                                                            } else {
+                                                                echo $rank . 'ème'; // Pour tous les autres (2ème, 3ème, etc.)
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td><?php
 															if (!empty($student_value->dob) && $student_value->dob != '0000-00-00') {
 															echo date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student_value->dob)); }?></td>
                                                         <td>

@@ -24,6 +24,8 @@ class Student extends Admin_Controller
         $this->sch_setting_detail = $this->setting_model->getSetting();
         $this->role;
         $this->staff_attendance = $this->config->item('staffattendance');
+        $this->current_session = $this->setting_model->getCurrentSession();
+
     }
 
     public function index()
@@ -796,6 +798,7 @@ class Student extends Admin_Controller
                     $parent_login_detail = array('id' => $insert_id, 'credential_for' => 'parent', 'username' => $this->parent_login_prefix . $insert_id, 'password' => $parent_password, 'contact_no' => $this->input->post('guardian_phone'), 'email' => $this->input->post('guardian_email'), 'admission_no' => $data_insert['admission_no'], 'student_session_id' => $student_session_id);
                     $this->mailsmsconf->mailsms('student_login_credential', $parent_login_detail);
                 }
+
 
                 $this->session->set_flashdata('msg', '<div class="alert alert-success">' . $this->lang->line('success_message') . '</div>');
                 redirect('student/create');
@@ -2229,6 +2232,7 @@ class Student extends Admin_Controller
                 $row[] = $student->admission_no;
                 $row[] = "<a href='" . base_url() . "student/view/" . $student->id . "'>" . $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname) . "</a>";
                 $row[] = $student->roll_no;
+                $row[] = "<a class='btn btn-danger btn-sm' href='" . base_url() . "student/conduite/" . $student->id . "'>" ."modifier". "</a>";
                 $row[] = $student->class . "(" . $student->section . ")";
                 if ($sch_setting->father_name) {
                     $row[] = $student->father_name;
@@ -2280,8 +2284,88 @@ class Student extends Admin_Controller
         echo json_encode($json_data);
 
     }
+    public function conduite($student_id)
+    {
+        $data['title'] = 'Conduite List';
+        $data['student_id'] = $student_id;
+        $data['conduites'] = $this->getconduitesofStudent($student_id);
+        $data['semesters'] = $this->semester_model->get(); // Pas besoin de passer le student_id ici
 
-    //datatable function to check search parameter validation
+        // Validation du formulaire
+        $this->form_validation->set_rules('notes[]', $this->lang->line('conduites'), 'trim|required|numeric|greater_than_equal_to[0]|less_than_equal_to[20]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('layout/header', $data);
+            $this->load->view('student/conduite', $data);
+            $this->load->view('layout/footer', $data);
+        } else {
+            $notes = $this->input->post('notes');
+
+            // Mise à jour des notes de conduite pour chaque semestre
+            foreach ($notes as $semester_id => $note) {
+                $data = array(
+                    'student_id' => $student_id,
+                    'semester_id' => $semester_id,
+                    'conduite' => $note,
+                    'session_id' => $this->current_session, // Assurez-vous que cette variable est définie correctement
+                );
+
+                // Appel de la fonction pour mettre à jour ou insérer la conduite
+                $this->conduitesadd($data);
+            }
+
+            // Message flash en cas de succès
+            $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>');
+
+            // Redirection après succès
+            redirect('student/conduite/' . $student_id);
+        }
+    }
+    public function conduitesadd($data)
+    {
+        // Vérifier si une note de conduite existe déjà pour cet étudiant, semestre et session
+        $this->db->select('id');
+        $this->db->from('student_conduite');
+        $this->db->where('student_id', $data['student_id']);
+        $this->db->where('semester_id', $data['semester_id']);
+        $this->db->where('session_id', $data['session_id']);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            // Si l'enregistrement existe, on met à jour la note de conduite
+            $this->db->where('student_id', $data['student_id']);
+            $this->db->where('semester_id', $data['semester_id']);
+            $this->db->where('session_id', $data['session_id']);
+            $this->db->update('student_conduite', ['conduite' => $data['conduite']]);
+        } else {
+            // Si l'enregistrement n'existe pas, on l'ajoute
+            $this->db->insert('student_conduite', $data);
+        }
+    }
+
+
+
+        public function getconduitesofStudent($student_id)
+    {
+        $this->db->select('semester_id, session_id, conduite');
+        $this->db->from('student_conduite');
+        $this->db->where('student_id', $student_id);
+        $query = $this->db->get();
+
+        $conduites = [];
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $conduites[$row['semester_id']] = [
+                    'session_id' => $row['session_id'],
+                    'conduite' => $row['conduite']
+                ];
+            }
+        }
+
+        return $conduites;
+    }
+
+        //datatable function to check search parameter validation
     public function searchvalidation()
     {
         $class_id   = $this->input->post('class_id');

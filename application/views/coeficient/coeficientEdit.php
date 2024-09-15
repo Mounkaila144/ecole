@@ -12,7 +12,7 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('edit_coeficient'); ?></h3>
+                            <h3 class="box-title">Modifier le coefficient</h3>
                         </div>
                         <form  action="<?php echo site_url("evaluation/coeficient/edit/" . $coeficient['id'])?>" id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                             <div class="box-body">
@@ -27,7 +27,7 @@
 
                                 <!-- Champ pour la note maximale -->
                                 <div class="form-group">
-                                    <label for="coeficient"><?php echo $this->lang->line('coeficient'); ?> </label><small class="req"> *</small>
+                                    <label for="coeficient">Coefficient </label><small class="req"> *</small>
                                     <input autofocus="" id="coeficient" name="coeficient" placeholder="Ex: 100" type="number" class="form-control" value="<?php echo set_value('coeficient', $coeficient['coeficient']); ?>" />
                                     <span class="text-danger"><?php echo form_error('coeficient'); ?></span>
                                 </div>
@@ -72,17 +72,17 @@
             ?>">
                 <div class="box box-primary">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"><?php echo $this->lang->line('coeficient_list'); ?></h3>
+                        <h3 class="box-title titlefix">List des Coefficients</h3>
                     </div>
                     <div class="box-body ">
                         <div class="table-responsive mailbox-messages overflow-visible">
-                            <div class="download_label"><?php echo $this->lang->line('coeficient_list'); ?></div>
+                            <div class="download_label">List des Coefficients</div>
                             <table class="table table-striped table-bordered table-hover example">
                                 <thead>
                                 <tr>
                                     <th><?php echo $this->lang->line('subject'); ?></th>
                                     <th><?php echo $this->lang->line('class'); ?></th>
-                                    <th><?php echo $this->lang->line('coeficient'); ?></th>
+                                    <th>Coefficient</th>
                                     <th class="text-right noExport"><?php echo $this->lang->line('action'); ?></th>
                                 </tr>
                                 </thead>

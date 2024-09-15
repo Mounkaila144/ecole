@@ -5,6 +5,8 @@ $lang["semester_will_also_delete_all_evalutions_under_this_semester_so_be_carefu
 $lang["add_semester"] = "Add new semester";
 $lang["semester"] = "Semester";
 $lang["evaluation"] = "Evaluation";
+$lang["bulletin"] = "Bulletin";
+$lang["coeficient"] = "Coefficients";
 
 $lang['abs'] = "ABS";	
 $lang['absent'] = "Absent";	

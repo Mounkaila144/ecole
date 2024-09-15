@@ -1,5 +1,12 @@
 <?php
 #version 6.4.0
+$lang["semester_list"] = "List des semestres";
+$lang["semester_will_also_delete_all_evalutions_under_this_semester_so_be_careful_as_this_action_is_irreversible"] = "Le semester vas aussi suprimer tout les evaluation qui bsont a l'interieur";
+$lang["add_semester"] = "Ajouter un semester";
+$lang["semester"] = "Semestre";
+$lang["evaluation"] = "Evaluation";
+$lang["bulletin"] = "Bulletin";
+$lang["coeficient"] = "Coefficients";
 
 $lang['abs'] ="abdos";
 $lang['absent'] ="Absent";

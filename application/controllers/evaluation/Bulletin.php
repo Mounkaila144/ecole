@@ -46,7 +46,7 @@ class Bulletin extends Admin_Controller
             $semester_id = $this->input->post('semester_id');
             $class_id      = $this->input->post('class_id');
             $section_id    = $this->input->post('section_id');
-            $data['studentList']        = $this->getStudentsByClassAndSection($class_id, $section_id);
+            $data['studentList']        = $this->getStudentsByClassAndSection($class_id, $section_id,$semester_id);
             $data['semester_id']      = $semester_id;
             $data['class_id']      = $class_id;
             $data['section_id']      = $section_id;
@@ -56,18 +56,8 @@ class Bulletin extends Admin_Controller
         $this->load->view('bulletin/marksheet', $data);
         $this->load->view('layout/footer', $data);
     }
-    public function getStudentsByClassAndSection($class_id,$section_id) {
 
-        // Requête pour récupérer les étudiants en fonction des sections et de la classe
-        $this->db->select('students.id , students.firstname as firstname, students.lastname as lastname');
-        $this->db->from('student_session');
-        $this->db->join('students', 'students.id = student_session.student_id');
-        $this->db->where('student_session.class_id', $class_id);
-        $this->db->where_in('student_session.section_id', $section_id);  // Vérifier les étudiants dans les sections sélectionnées
 
-        $query = $this->db->get();
-        return$query->result_array();  // Retourner les résultats en JSON pour le script JavaScript
-    }
 
     public function pdftmarksheet()
     {
@@ -76,13 +66,25 @@ class Bulletin extends Admin_Controller
         $semester_id = $this->input->post('semester_id');
         $class_id    = $this->input->post('class_id');
         $section_id  = $this->input->post('section_id');
-
+        $data['setting'] = $this->sch_setting_detail;
         // Récupérer les informations de l'étudiant, la session, et les coefficients
         $data['student'] = $this->student_model->get($student_id);
         $data['session'] = $this->session_model->get($this->current_session);
         $data['coeficientList'] = $this->coeficient_model->getCoeficientByClassSection($class_id, $section_id);
-        $data['rank'] = $this->calculateStudentRank($student_id, $class_id, $section_id, $semester_id);
+        // Récupérer les autres étudiants pour calculer le rang
+        $students = $this->getStudentsByClassAndSection($class_id, $section_id, $semester_id);
+
+        // Calculer le rang de l'étudiant
+        $data['rank'] = $this->calculateStudentRank($students, $student_id, $class_id, $section_id, $semester_id);
         $data['total_students'] = $this->getStudentCountByClassSection($class_id, $section_id);
+        // Ajouter la matière "Conduite" avec un coefficient fixe de 1
+        $data['coeficientList'][] = [
+            'subject' => 'Conduite',
+            'coeficient' => 1
+        ];
+
+        // Récupérer la note de conduite pour cet étudiant, ce semestre et cette session
+        $data['conduite_note'] = $this->getConduiteNoteByStudentSemesterSession($student_id, $semester_id);
 
         // Récupérer les moyennes pour chaque type d'évaluation
         $evaluations_types = ['interrogation', 'devoir', 'composition'];
@@ -171,12 +173,40 @@ class Bulletin extends Admin_Controller
         // Retourner le nombre total d'étudiants
         return $result['total_students'];
     }
-
-    public function calculateStudentRank($student_id, $class_id, $section_id, $semester_id)
+    public function getStudentsByClassAndSection($class_id, $section_id, $semester_id)
     {
-        // Récupérer tous les étudiants de la classe et section
-        $students = $this->getStudentsByClassAndSection($class_id, $section_id);
+        // Requête pour récupérer les étudiants en fonction des sections et de la classe
+        $this->db->select('students.id, students.firstname, students.lastname');
+        $this->db->from('student_session');
+        $this->db->join('students', 'students.id = student_session.student_id')
+            ->join('sessions', 'student_session.session_id = sessions.id');
+        $this->db->where('student_session.class_id', $class_id);
+        $this->db->where('sessions.id', $this->current_session);
+        $this->db->where_in('student_session.section_id', $section_id);
 
+        $query = $this->db->get();
+        $students = $query->result_array();
+
+        // Initialisation du tableau des étudiants avec leur rang
+        $students_with_rank = [];
+
+        // Calcul du rang pour chaque étudiant en passant les données à la fonction
+        foreach ($students as $student) {
+            $student_id = $student['id'];
+            $rank = $this->calculateStudentRank($students, $student_id, $class_id, $section_id, $semester_id); // Calcul du rang
+            $students_with_rank[] = array_merge($student, ['rank' => $rank]);
+        }
+
+        // Trier la liste des étudiants par rang (du premier au dernier)
+        usort($students_with_rank, function ($a, $b) {
+            return $a['rank'] <=> $b['rank']; // Tri par ordre croissant
+        });
+
+        return $students_with_rank;  // Retourner les résultats avec le rang trié
+    }
+
+    public function calculateStudentRank($students, $student_id, $class_id, $section_id, $semester_id)
+    {
         $student_averages = [];
         foreach ($students as $student) {
             // Calculer la moyenne générale pour chaque étudiant
@@ -219,6 +249,27 @@ class Bulletin extends Admin_Controller
         return null; // Si l'étudiant n'est pas trouvé
     }
 
+    /**
+     * Récupérer ou utiliser la note de conduite par défaut
+     */
+    public function getConduiteNoteByStudentSemesterSession($student_id, $semester_id)
+    {
+        // Vérifier si une note de conduite existe pour cet étudiant, ce semestre, et cette session
+        $this->db->select('conduite');
+        $this->db->from('student_conduite');
+        $this->db->where('student_id', $student_id);
+        $this->db->where('semester_id', $semester_id);
+        $this->db->where('session_id', $this->current_session);
+        $query = $this->db->get();
+
+        // Si une note existe, la retourner, sinon retourner 18 par défaut
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            return $result['conduite'];
+        } else {
+            return 18;  // Retourner 18 si aucun enregistrement n'existe
+        }
+    }
 
 
 

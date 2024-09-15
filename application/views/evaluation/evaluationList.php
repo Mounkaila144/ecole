@@ -21,7 +21,7 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('add_evaluation'); ?></h3>
+                            <h3 class="box-title">Ajouter un évaluation</h3>
                         </div>
                         <form action="<?php echo site_url('evaluation/evaluation/index/' . $semester_id) ?>" id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                             <div class="box-body">
@@ -34,7 +34,7 @@
                                 <?php echo $this->customlib->getCSRF(); ?>
                                 <!-- Champ pour le type d'évaluation -->
                                 <div class="form-group">
-                                    <label for="type"><?php echo $this->lang->line('type'); ?> </label><small class="req"> *</small>
+                                    <label for="type">Type </label><small class="req"> *</small>
                                     <select id="type" name="type" class="form-control">
                                         <option value="interrogation" <?php echo set_select('type', 'interrogation'); ?>>Interrogation</option>
                                         <option value="devoir" <?php echo set_select('type', 'devoir'); ?>>Devoir</option>
@@ -44,7 +44,7 @@
                                 </div>
                                 <!-- Champ pour la note maximale -->
                                 <div class="form-group">
-                                    <label for="maxnote"><?php echo $this->lang->line('max_note'); ?> </label><small class="req"> *</small>
+                                    <label for="maxnote">Note Maximum </label><small class="req"> *</small>
                                     <input autofocus="" id="maxnote" name="maxnote" placeholder="Ex: 100" type="number" class="form-control" value="<?php echo set_value('maxnote'); ?>" />
                                     <span class="text-danger"><?php echo form_error('maxnote'); ?></span>
                                 </div>
@@ -125,18 +125,18 @@
             ?>">
                 <div class="box box-primary">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"><?php echo $this->lang->line('evaluation_list'); ?></h3>
+                        <h3 class="box-title titlefix">List des évaluations</h3>
                     </div>
                     <div class="box-body ">
                         <div class="table-responsive mailbox-messages overflow-visible">
-                            <div class="download_label"><?php echo $this->lang->line('evaluation_list'); ?></div>
+                            <div class="download_label">>List des évaluations</div>
                             <table class="table table-striped table-bordered table-hover example">
                                 <thead>
                                 <tr>
-                                    <th><?php echo $this->lang->line('type'); ?></th>
+                                    <th>Type</th>
                                     <th><?php echo $this->lang->line('subject'); ?></th>
                                     <th><?php echo $this->lang->line('class'); ?></th>
-                                    <th><?php echo $this->lang->line('max_note'); ?></th>
+                                    <th>Note Maximum</th>
                                     <th class="text-right noExport"><?php echo $this->lang->line('action'); ?></th>
                                 </tr>
                                 </thead>

@@ -12,7 +12,7 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('edit_evaluation'); ?></h3>
+                            <h3 class="box-title">Modifier L'évaluation</h3>
                         </div>
                         <form  action="<?php echo site_url("evaluation/evaluation/edit/" . $evaluation['id'])."/".$semester_id ?>" id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
                             <div class="box-body">
@@ -36,7 +36,7 @@
 
                                 <!-- Champ pour la note maximale -->
                                 <div class="form-group">
-                                    <label for="maxnote"><?php echo $this->lang->line('max_note'); ?> </label><small class="req"> *</small>
+                                    <label for="maxnote">Note Maximum</label><small class="req"> *</small>
                                     <input autofocus="" id="maxnote" name="maxnote" placeholder="Ex: 100" type="number" class="form-control" value="<?php echo set_value('maxnote', $evaluation['maxnote']); ?>" />
                                     <span class="text-danger"><?php echo form_error('maxnote'); ?></span>
                                 </div>
@@ -91,8 +91,8 @@
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th><?php echo $this->lang->line('student_name'); ?></th>
-                                        <th><?php echo $this->lang->line('note'); ?></th>
+                                        <th>Nom de l'eleve</th>
+                                        <th>Note</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,18 +128,18 @@
             ?>">             
                 <div class="box box-primary">
                     <div class="box-header ptbnull">
-                        <h3 class="box-title titlefix"><?php echo $this->lang->line('evaluation_list'); ?></h3>
+                        <h3 class="box-title titlefix">List des évaluations</h3>
                     </div>
                     <div class="box-body ">
                         <div class="table-responsive mailbox-messages overflow-visible">
-                            <div class="download_label"><?php echo $this->lang->line('evaluation_list'); ?></div>
+                            <div class="download_label">List des évaluations</div>
                             <table class="table table-striped table-bordered table-hover example">
                                 <thead>
                                 <tr>
-                                    <th><?php echo $this->lang->line('type'); ?></th>
+                                    <th>Type</th>
                                     <th><?php echo $this->lang->line('subject'); ?></th>
                                     <th><?php echo $this->lang->line('class'); ?></th>
-                                    <th><?php echo $this->lang->line('max_note'); ?></th>
+                                    <th>Notes Maximum</th>
                                     <th class="text-right noExport"><?php echo $this->lang->line('action'); ?></th>
                                 </tr>
                                 </thead>
