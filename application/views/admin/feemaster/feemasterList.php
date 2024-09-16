@@ -193,7 +193,7 @@
                                                                      <?php 
 
 
-                                                                echo $currency_symbol.amountFormat($feetype_value->amount); ?></div>
+                                                                echo amountFormat($feetype_value->amount) . ' ' . $currency_symbol; ?></div>
                                                                     <div class="col-md-3"> <?php if ($this->rbac->hasPrivilege('fees_master', 'can_edit')) {
                                                                  ?>
                                                                     <a href="<?php echo base_url(); ?>admin/feemaster/edit/<?php echo $feetype_value->id ?>"   data-toggle="tooltip" title="<?php echo $this->lang->line('edit'); ?>">

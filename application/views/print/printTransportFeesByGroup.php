@@ -356,7 +356,7 @@ if(in_array('0', $print_copy)){
             }
             ?>
 
-<span  class="text text-danger"><?php echo " + " . $currency_symbol.amountFormat($tr_fine_amount); ?></span>
+<span  class="text text-danger"><?php echo " + " . amountFormat($tr_fine_amount) . ' ' . $currency_symbol; ?></span>
 
     <?php
 }
@@ -588,7 +588,7 @@ if(in_array('0', $print_copy)){
             }
             ?>
 
-<span  class="text text-danger"><?php echo " + " . $currency_symbol.amountFormat($tr_fine_amount); ?></span>
+<span  class="text text-danger"><?php echo " + " . amountFormat($tr_fine_amount) . ' ' . $currency_symbol; ?></span>
 
     <?php
 }
@@ -821,7 +821,7 @@ if(in_array('0', $print_copy)){
             }
             ?>
 
-<span  class="text text-danger"><?php echo " + " . $currency_symbol.amountFormat($tr_fine_amount); ?></span>
+<span  class="text text-danger"><?php echo " + " . amountFormat($tr_fine_amount) . ' ' . $currency_symbol; ?></span>
 
     <?php
 }

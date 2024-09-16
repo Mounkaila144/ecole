@@ -60,9 +60,9 @@ foreach ($student_list as $student_key => $student_value) {
 									
 					?>
 				</td>
-		    	<td class="text text-right"><strong><?php echo $currency_symbol.amountFormat($fees_value->amount_fine);  ?></strong></td>		
-		    	<td class="text text-right"><strong><?php echo $currency_symbol.amountFormat($fees_value->amount);  ?></strong></td>
-		    	<td class="text text-right"><strong><?php echo $currency_symbol.amountFormat($fees_value->amount_fine+$fees_value->amount);  ?></strong></td>		    	
+		    	<td class="text text-right"><strong><?php echo amountFormat($fees_value->amount_fine) . ' ' . $currency_symbol;  ?></strong></td>		
+		    	<td class="text text-right"><strong><?php echo amountFormat($fees_value->amount) . ' ' . $currency_symbol;  ?></strong></td>
+		    	<td class="text text-right"><strong><?php echo amountFormat($fees_value->amount_fine+$fees_value->amount) . ' ' . $currency_symbol;  ?></strong></td>		    	
 		    </tr>
 		    <?php		
 		    	}		    
@@ -81,7 +81,7 @@ foreach ($student_list as $student_key => $student_value) {
     	 	<td ></td>
     	 	<td ></td>
 			<td  class="text text-right"><strong> <?php echo $this->lang->line('grand_total'); ?></strong></td>
-    	 	<td class="text text-right"><strong><?php echo $currency_symbol.amountFormat($total_amount + $total_fine); ?></strong></td>    	
+    	 	<td class="text text-right"><strong><?php echo amountFormat($total_amount + $total_fine) . ' ' . $currency_symbol; ?></strong></td>    	
     	 </tr>
     </tbody>
 		

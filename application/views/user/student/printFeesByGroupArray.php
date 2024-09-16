@@ -499,7 +499,7 @@ if ($feetype_balance == 0) {
             }
             ?>
 
-<span  class="text text-danger"><?php echo " + " . $currency_symbol.amountFormat($tr_fine_amount); ?></span>
+<span  class="text text-danger"><?php echo " + " . amountFormat($tr_fine_amount) . ' ' . $currency_symbol; ?></span>
 
     <?php
 }

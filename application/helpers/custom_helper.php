@@ -412,7 +412,8 @@ function amountFormat($amount)
     } elseif ($currency_format == "#,###.###") {
         $return_amt = number_format($amount, 3, '.', ',');
     } elseif ($currency_format == "####.##") {
-        $return_amt = number_format($amount, 2, '.', '');
+        $return_amt = number_format($amount, 0, '', ' ');
+        //$return_amt = number_format($amount, 2, '.', '');
     } elseif ($currency_format == "#,##,###.##") {
         $return_amt = indian_money_format($amount);
     }

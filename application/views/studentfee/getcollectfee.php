@@ -180,7 +180,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 echo $fee_value->name . " (" . $fee_value->type . ")";
                             }
                         ?>
-                        <span class="pull-right"><?php echo  $currency_symbol.amountFormat((float) $amount_to_be_pay, 2, '.', ''); ?></span></a>
+                        <span class="pull-right"><?php echo  amountFormat((float) . ' ' . $currency_symbol $amount_to_be_pay, 2, '.', ''); ?></span></a>
                         <span class="product-description">                       
                         
                         <?php
@@ -197,7 +197,7 @@ if($fine_amount_status){
     ?>
                        <a href="#"  onclick="return false;" class="product-title text text-danger"><?php echo $this->lang->line('fine'); ?>
                         <span class="pull-right">
-                            <?php echo  $currency_symbol.amountFormat((float) $fees_fine_amount, 2, '.', ''); ?>                                
+                            <?php echo  amountFormat((float) . ' ' . $currency_symbol $fees_fine_amount, 2, '.', ''); ?>                                
                         </span>
                     </a>
     <?php
@@ -248,7 +248,7 @@ $transport_fine_amount  =  is_null($fee_value->fine_percentage) ? $fee_value->fi
                 <input name="trans_fee_id_<?php echo $row_counter; ?>" type="hidden" value="<?php echo $fee_value->id; ?>">
                 
                     <a href="#"  onclick="return false;" class="product-title"><?php echo $this->lang->line("transport_fees") ?>
-                        <span class="pull-right"><?php echo  $currency_symbol.amountFormat((float) $amount_to_be_pay, 2, '.', ''); ?></span></a>
+                        <span class="pull-right"><?php echo  amountFormat((float) . ' ' . $currency_symbol $amount_to_be_pay, 2, '.', ''); ?></span></a>
                          <span class="product-description">
                         <?php echo $fee_value->month; ?>
                         </span>
@@ -257,7 +257,7 @@ if($fine_amount_status){
     ?>
                        <a href="#"  onclick="return false;" class="product-title text text-danger"><?php echo $this->lang->line('fine'); ?>
                         <span class="pull-right">
-                            <?php echo  $currency_symbol.amountFormat((float) $fees_fine_amount, 2, '.', ''); ?>                                
+                            <?php echo  amountFormat((float) . ' ' . $currency_symbol $fees_fine_amount, 2, '.', ''); ?>                                
                         </span>
                     </a>
     <?php
@@ -285,7 +285,7 @@ if($fine_amount_status){
     </div>
     <div class="col-md-4">
         <span class="pull-right">
-            <?php echo $currency_symbol.amountFormat((float) $total_amount, 2, '.', ''); ?>
+            <?php echo amountFormat((float) . ' ' . $currency_symbol $total_amount, 2, '.', ''); ?>
         </span>
     </div>
 </div>
