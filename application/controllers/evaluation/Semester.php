@@ -47,7 +47,7 @@ class Semester extends Admin_Controller
             // Affichage de message flash en cas de succès
             $this->session->set_flashdata('msg', '<div class="alert alert-success text-left">' . $this->lang->line('success_message') . '</div>');
 
-            // Redirection après succès
+            // Redirection après succès yes
             redirect('evaluation/semester/index');
         }
     }
