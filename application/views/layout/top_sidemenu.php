@@ -8,7 +8,7 @@
         </li>
     <?php } ?>
 
-    <li class="dropdown mega-dropdown">
+    <li class="dropdown mega-dropdown d-none">
         <a class="dropdown-toggle drop5" data-toggle="dropdown" href="#" aria-expanded="false">
             <span><?php echo $this->lang->line('quick_links'); ?></span> <i class="fa fa-th pull-right"></i>
         </a>
