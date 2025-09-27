@@ -71,6 +71,12 @@ class Sections extends Admin_Controller
         redirect('sections/index');
     }
 
+    public function get()
+    {
+        $section_result = $this->section_model->get();
+        echo json_encode($section_result);
+    }
+
     public function getByClass()
     {
         $class_id = $this->input->get('class_id');

@@ -151,4 +151,14 @@ class Classes extends Admin_Controller
         $this->load->view('class/_section_list', $data);
     }
 
+    public function get()
+    {
+        $this->db->select('classes.id, classes.class');
+        $this->db->from('classes');
+        $this->db->order_by('classes.class', 'ASC');
+        $query = $this->db->get();
+        $classes = $query->result_array();
+        echo json_encode($classes);
+    }
+
 }
