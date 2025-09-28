@@ -6,70 +6,119 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.multiselect.js"></script>
 
 <style>
-/* Plus button styling */
+/* Plus button styling - matching existing design pattern */
 .input-group-addon.btn-plus {
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
+    background-color: #f9f9f9;
+    background-image: linear-gradient(to bottom,#fff 0,#f0f0f0 100%);
+    border: 1px solid #ccc;
     border-left: none;
     border-radius: 0 4px 4px 0;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .input-group-addon.btn-plus:hover {
-    background-color: #e9ecef;
-    border-color: #adb5bd;
-}
-
-/* Enhanced button styling */
-.btn-outline-success {
-    border: 2px solid #28a745;
-    color: #28a745;
-    background: transparent;
-    transition: all 0.3s ease;
-}
-
-.btn-outline-success:hover {
-    background: #28a745;
-    color: white;
+    background-color: #f0f0f0;
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#e8e8e8 100%);
+    border-color: #adadad;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 3px rgba(0,0,0,.1);
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.input-group-addon.btn-plus:active {
+    background-color: #e8e8e8;
+    background-image: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.15);
+    transform: translateY(0);
+}
+
+/* Success button styling - following existing patterns */
+.btn-success {
+    background-color: #5cb85c;
+    background-image: linear-gradient(to bottom,#5cb85c 0,#449d44 100%);
+    border: 1px solid #449d44;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
+}
+
+.btn-success:hover {
+    background-color: #449d44;
+    background-image: linear-gradient(to bottom,#449d44 0,#398439 100%);
+    border-color: #398439;
+    color: #fff;
+}
+
+.btn-success:active {
+    background-color: #398439;
+    background-image: none;
+    border-color: #255625;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
 }
 
 /* Form submission button styling */
 #classSubmitBtn, #sectionSubmitBtn {
     min-width: 120px;
+    background-color: #5cb85c;
+    background-image: linear-gradient(to bottom,#5cb85c 0,#449d44 100%);
+    border: 1px solid #449d44;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
 }
 
 #classSubmitBtn:hover, #sectionSubmitBtn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    background-color: #449d44;
+    background-image: linear-gradient(to bottom,#449d44 0,#398439 100%);
+    border-color: #398439;
 }
 
-/* Enhanced modal styling */
+#classSubmitBtn:active, #sectionSubmitBtn:active {
+    background-color: #398439;
+    background-image: none;
+    border-color: #255625;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+
+/* Enhanced modal styling - matching existing design */
 .modal-content {
-    border-radius: 10px;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,.2);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    background-color: #fff;
+    background-clip: padding-box;
 }
 
 .modal-header {
-    border-radius: 10px 10px 0 0;
-    border-bottom: none;
-    padding: 20px 25px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
 }
 
 .modal-title {
-    font-weight: 600;
+    font-weight: 500;
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
 }
 
 .modal-body {
-    padding: 25px;
+    padding: 15px;
+    background-color: #fff;
 }
 
 .modal-footer {
-    border-radius: 0 0 10px 10px;
-    border-top: 1px solid #e9ecef;
-    padding: 20px 25px;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #e5e5e5;
+    padding: 15px;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(to bottom,#fff 0,#e8e8e8 100%);
+    text-align: right;
 }
 
 /* Input group button styling */
@@ -81,6 +130,67 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
 .input-group-btn .btn:hover {
     z-index: 0;
+}
+
+/* Alert styling - matching existing */
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Form control enhancements */
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+/* Checkbox styling */
+.checkbox label {
+    padding-left: 20px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-left: -20px;
+}
+
+/* Enhanced close button */
+.close {
+    color: #000;
+    opacity: 0.2;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.close:hover {
+    color: #000;
+    opacity: 0.5;
 }
 </style>
 <div class="content-wrapper">
@@ -154,8 +264,8 @@ if (set_value('class_id') == $class['id']) {
 ?>
                                                     </select>
                                                     <div class="input-group-btn">
-                                                        <span class="input-group-addon btn-plus" onclick="showClassModal()" title="Create New Class" style="cursor: pointer; padding: 10px 12px;">
-                                                            <i class="fa fa-plus" style="color: #333; font-size: 14px;"></i>
+                                                        <span class="input-group-addon btn-plus" onclick="showClassModal()" title="Create New Class" style="cursor: pointer; padding: 8px 10px;">
+                                                            <i class="fa fa-plus" style="color: #5cb85c; font-size: 12px; font-weight: bold;"></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -170,8 +280,8 @@ if (set_value('class_id') == $class['id']) {
                                                         <option value=""   ><?php echo $this->lang->line('select'); ?></option>
                                                     </select>
                                                     <div class="input-group-btn">
-                                                        <span class="input-group-addon btn-plus" onclick="showSectionModal()" title="Create New Section" style="cursor: pointer; padding: 10px 12px;">
-                                                            <i class="fa fa-plus" style="color: #333; font-size: 14px;"></i>
+                                                        <span class="input-group-addon btn-plus" onclick="showSectionModal()" title="Create New Section" style="cursor: pointer; padding: 8px 10px;">
+                                                            <i class="fa fa-plus" style="color: #5cb85c; font-size: 12px; font-weight: bold;"></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -1013,8 +1123,8 @@ echo set_value('rte') == "no" ? "checked" : "";
 <div class="modal fade" id="classModal" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">
                     <i class="fa fa-graduation-cap"></i>
                     <?php echo $this->lang->line('create_class'); ?>
@@ -1025,14 +1135,14 @@ echo set_value('rte') == "no" ? "checked" : "";
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="class_name"><?php echo $this->lang->line('class_name'); ?><span class="required">*</span></label>
+                                <label for="class_name"><?php echo $this->lang->line('class_name'); ?><small class="req"> *</small></label>
                                 <input type="text" class="form-control" id="class_name" name="class" required placeholder="Ex: Informatique, Mathématiques">
                                 <span class="text-danger" id="class_error"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label><?php echo $this->lang->line('sections'); ?><span class="required">*</span></label>
+                                <label><?php echo $this->lang->line('sections'); ?><small class="req"> *</small></label>
                                 <div id="sectionsContainer">
                                     <!-- Sections will be loaded here via AJAX -->
                                 </div>
@@ -1057,8 +1167,8 @@ echo set_value('rte') == "no" ? "checked" : "";
 <div class="modal fade" id="sectionModal" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">
                     <i class="fa fa-sitemap"></i>
                     <?php echo $this->lang->line('create_section'); ?>
@@ -1067,7 +1177,7 @@ echo set_value('rte') == "no" ? "checked" : "";
             <form id="sectionForm">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="section_name"><?php echo $this->lang->line('section_name'); ?><span class="required">*</span></label>
+                        <label for="section_name"><?php echo $this->lang->line('section_name'); ?><small class="req"> *</small></label>
                         <input type="text" class="form-control" id="section_name" name="section" required placeholder="Ex: Licence 1, Master 2, etc.">
                         <span class="text-danger" id="section_error"></span>
                     </div>
