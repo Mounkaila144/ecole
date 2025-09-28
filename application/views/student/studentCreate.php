@@ -4,6 +4,85 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <link href="<?php echo base_url(); ?>backend/multiselect/css/jquery.multiselect.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.multiselect.js"></script>
+
+<style>
+/* Plus button styling */
+.input-group-addon.btn-plus {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    transition: all 0.3s ease;
+}
+
+.input-group-addon.btn-plus:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* Enhanced button styling */
+.btn-outline-success {
+    border: 2px solid #28a745;
+    color: #28a745;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover {
+    background: #28a745;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Form submission button styling */
+#classSubmitBtn, #sectionSubmitBtn {
+    min-width: 120px;
+}
+
+#classSubmitBtn:hover, #sectionSubmitBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Enhanced modal styling */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+    padding: 20px 25px;
+}
+
+.modal-title {
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-footer {
+    border-radius: 0 0 10px 10px;
+    border-top: 1px solid #e9ecef;
+    padding: 20px 25px;
+}
+
+/* Input group button styling */
+.input-group-btn .btn {
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    padding: 10px 12px;
+}
+
+.input-group-btn .btn:hover {
+    z-index: 0;
+}
+</style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -48,7 +127,7 @@ echo $this->session->flashdata('msg');
                                             </div>
                                         <?php }?>
                                         <?php if ($sch_setting->roll_no) {?>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('roll_number'); ?></label>
                                                     <input id="roll_no" name="roll_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('roll_no'); ?>" />
@@ -59,29 +138,43 @@ echo $this->session->flashdata('msg');
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
-                                                <select  id="class_id" name="class_id" class="form-control"  >
-                                                     <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                    <?php
+                                                <div class="input-group">
+                                                    <select  id="class_id" name="class_id" class="form-control"  >
+                                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                        <?php
 foreach ($classlist as $class) {
     ?>
-                                                        <option value="<?php echo $class['id'] ?>"<?php
+                                                            <option value="<?php echo $class['id'] ?>"<?php
 if (set_value('class_id') == $class['id']) {
         echo "selected=selected";
     }
     ?>><?php echo $class['class'] ?></option>
-                                                                <?php
+                                                                    <?php
 }
 ?>
-                                                </select>
+                                                    </select>
+                                                    <div class="input-group-btn">
+                                                        <span class="input-group-addon btn-plus" onclick="showClassModal()" title="Create New Class" style="cursor: pointer; padding: 10px 12px;">
+                                                            <i class="fa fa-plus" style="color: #333; font-size: 14px;"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                                 <span class="text-danger"><?php echo form_error('class_id'); ?></span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
-                                                <select  id="section_id" name="section_id" class="form-control" >
-                                                    <option value=""   ><?php echo $this->lang->line('select'); ?></option>
-                                                </select>
+                                                <div class="input-group">
+                                                    <select  id="section_id" name="section_id" class="form-control" >
+                                                        <option value=""   ><?php echo $this->lang->line('select'); ?></option>
+                                                    </select>
+                                                    <div class="input-group-btn">
+                                                        <span class="input-group-addon btn-plus" onclick="showSectionModal()" title="Create New Section" style="cursor: pointer; padding: 10px 12px;">
+                                                            <i class="fa fa-plus" style="color: #333; font-size: 14px;"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                                 <span class="text-danger"><?php echo form_error('section_id'); ?></span>
                                             </div>
                                         </div>
@@ -317,7 +410,7 @@ echo display_custom_fields('students');
                                             <?php
 if ($this->module_lib->hasActive('transport')) {
         ?>
-                                                <div class="bozero">
+                                                <div class="bozero" style="display: none">
                                                     <h4 class="pagetitleh2">
         <?php echo $this->lang->line('transport_details'); ?>
                                                     </h4>
@@ -916,6 +1009,80 @@ echo set_value('rte') == "no" ? "checked" : "";
 </section>
 </div>
 
+<!-- Class Creation Modal -->
+<div class="modal fade" id="classModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                <h4 class="modal-title">
+                    <i class="fa fa-graduation-cap"></i>
+                    <?php echo $this->lang->line('create_class'); ?>
+                </h4>
+            </div>
+            <form id="classForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="class_name"><?php echo $this->lang->line('class_name'); ?><span class="required">*</span></label>
+                                <input type="text" class="form-control" id="class_name" name="class" required placeholder="Ex: Informatique, Mathématiques">
+                                <span class="text-danger" id="class_error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><?php echo $this->lang->line('sections'); ?><span class="required">*</span></label>
+                                <div id="sectionsContainer">
+                                    <!-- Sections will be loaded here via AJAX -->
+                                </div>
+                                <span class="text-danger" id="sections_error"></span>
+                                <small class="text-muted">Select existing sections to associate with this class</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
+                    <button type="submit" class="btn btn-success" id="classSubmitBtn">
+                        <i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Section Creation Modal -->
+<div class="modal fade" id="sectionModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                <h4 class="modal-title">
+                    <i class="fa fa-sitemap"></i>
+                    <?php echo $this->lang->line('create_section'); ?>
+                </h4>
+            </div>
+            <form id="sectionForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="section_name"><?php echo $this->lang->line('section_name'); ?><span class="required">*</span></label>
+                        <input type="text" class="form-control" id="section_name" name="section" required placeholder="Ex: Licence 1, Master 2, etc.">
+                        <span class="text-danger" id="section_error"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
+                    <button type="submit" class="btn btn-success" id="sectionSubmitBtn">
+                        <i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="mySiblingModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1288,6 +1455,357 @@ if (($userdata["role_id"] == 2)) {
 </script>
 
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/js/savemode.js"></script>
+
+<script type="text/javascript">
+    // Class modal functionality
+    function showClassModal() {
+        // Load existing sections first
+        loadExistingSections();
+
+        $('#classModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+        $('#class_name').focus();
+    }
+
+    // Section modal functionality
+    function showSectionModal() {
+        // Clear any previous error messages
+        $('#section_error').text('');
+        $('#section_name').val('');
+
+        $('#sectionModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+        $('#section_name').focus();
+    }
+
+    // Load existing sections for class creation
+    function loadExistingSections() {
+        $.ajax({
+            url: '<?php echo site_url("sections/get"); ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var sectionsHtml = '';
+
+                if (data.length === 0) {
+                    sectionsHtml = '<div class="alert alert-warning">' +
+                                  '<i class="fa fa-exclamation-triangle"></i> ' +
+                                  '<strong>No sections found:</strong> Please create sections first using the ' +
+                                  '<button type="button" class="btn btn-sm btn-primary" onclick="$(\'#sectionModal\').modal(\'show\'); $(\'#classModal\').modal(\'hide\');">Create Section</button> ' +
+                                  'button above, then come back to create classes.' +
+                                  '</div>' +
+                                  '<p class="text-muted"><em>Sections are required before creating classes.</em></p>';
+                } else {
+                    sectionsHtml = '<div class="row">';
+                    $.each(data, function(index, section) {
+                        sectionsHtml += '<div class="col-md-6">';
+                        sectionsHtml += '<div class="checkbox">';
+                        sectionsHtml += '<label>';
+                        sectionsHtml += '<input type="checkbox" name="sections[]" value="' + section.id + '" /> ' + section.section;
+                        sectionsHtml += '</label>';
+                        sectionsHtml += '</div>';
+                        sectionsHtml += '</div>';
+                    });
+                    sectionsHtml += '</div>';
+                }
+
+                $('#sectionsContainer').html(sectionsHtml);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading sections:', error);
+                var errorHtml = '<div class="alert alert-danger">' +
+                                '<i class="fa fa-exclamation-circle"></i> ' +
+                                'Error loading sections. Please try again.' +
+                                '</div>';
+                $('#sectionsContainer').html(errorHtml);
+            }
+        });
+    }
+
+    // Handle class form submission
+    $('#classForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var className = $('#class_name').val().trim();
+        var selectedSections = $('input[name="sections[]"]:checked');
+
+        if (!className) {
+            $('#class_error').text('Class name is required');
+            return;
+        }
+
+        if (selectedSections.length === 0) {
+            $('#sections_error').text('Please select at least one section');
+            return;
+        }
+
+        $('#classSubmitBtn').html('<i class="fa fa-spinner fa-spin"></i> Creating...').prop('disabled', true);
+        $('#class_error').text('');
+        $('#sections_error').text('');
+
+        // Prepare form data
+        var formData = new FormData(this);
+        formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', '<?php echo $this->security->get_csrf_hash(); ?>');
+
+        $.ajax({
+            url: '<?php echo site_url("classes"); ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Refresh class dropdown and auto-select the new class
+                refreshClassDropdownAndSelect();
+
+                // Close modal and reset form
+                $('#classModal').modal('hide');
+                $('#classForm')[0].reset();
+                loadExistingSections();
+
+                // Show success message
+                showSuccessAlert('Class created successfully!');
+            },
+            error: function(xhr, status, error) {
+                if (xhr.responseText) {
+                    var errorMsg = 'Error creating class. Please try again.';
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            errorMsg = response.error;
+                        }
+                    } catch (e) {}
+                    $('#class_error').text(errorMsg);
+                } else {
+                    $('#class_error').text('Error creating class. Please try again.');
+                }
+                console.error('Class creation error:', error);
+            },
+            complete: function() {
+                $('#classSubmitBtn').html('<i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>').prop('disabled', false);
+            }
+        });
+    });
+
+    // Handle section form submission
+    $('#sectionForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var sectionName = $('#section_name').val().trim();
+        if (!sectionName) {
+            $('#section_error').text('Section name is required');
+            return;
+        }
+
+        $('#sectionSubmitBtn').html('<i class="fa fa-spinner fa-spin"></i> Creating...').prop('disabled', true);
+        $('#section_error').text('');
+
+        // Prepare form data with CSRF token
+        var formData = new FormData(this);
+        formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', '<?php echo $this->security->get_csrf_hash(); ?>');
+
+        $.ajax({
+            url: '<?php echo site_url("sections/index"); ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Refresh section dropdown based on context
+                var classId = $('#class_id').val();
+                if (classId) {
+                    // If a class is selected, refresh sections for that class
+                    refreshSectionDropdown();
+                } else {
+                    // If no class selected, refresh all sections
+                    refreshAllSections();
+                }
+
+                // Also refresh the sections in the class modal if it was opened from there
+                if ($('#classModal').hasClass('in')) {
+                    loadExistingSections();
+                }
+
+                // Close modal and reset form
+                $('#sectionModal').modal('hide');
+                $('#sectionForm')[0].reset();
+
+                // Show success message
+                showSuccessAlert('Section created successfully!');
+            },
+            error: function(xhr, status, error) {
+                if (xhr.responseText) {
+                    var errorMsg = 'Error creating section. Please try again.';
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            errorMsg = response.error;
+                        }
+                    } catch (e) {}
+                    $('#section_error').text(errorMsg);
+                } else {
+                    $('#section_error').text('Error creating section. Please try again.');
+                }
+                console.error('Section creation error:', error);
+            },
+            complete: function() {
+                $('#sectionSubmitBtn').html('<i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>').prop('disabled', false);
+            }
+        });
+    });
+
+    // Refresh class dropdown and auto-select the new class
+    function refreshClassDropdownAndSelect() {
+        var base_url = '<?php echo base_url() ?>';
+        var currentClassId = $('#class_id').val(); // Save current selection
+
+        $.ajax({
+            type: "GET",
+            url: base_url + "classes/get",
+            dataType: "json",
+            success: function (data) {
+                var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+                var newClassId = null;
+
+                $.each(data, function (i, obj) {
+                    var sel = "";
+                    if (currentClassId == obj.id) {
+                        sel = "selected";
+                    }
+                    div_data += "<option value=" + obj.id + " " + sel + ">" + obj.class + "</option>";
+
+                    // If this is the last item and no current selection, select it
+                    if (i === data.length - 1 && !currentClassId) {
+                        newClassId = obj.id;
+                    }
+                });
+
+                $('#class_id').html(div_data);
+
+                // Auto-select the new class if no class was previously selected
+                if (newClassId) {
+                    $('#class_id').val(newClassId);
+                    // Trigger change event to load sections
+                    $('#class_id').trigger('change');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error refreshing class dropdown:', error);
+                // Fallback: reload the page
+                location.reload();
+            }
+        });
+    }
+
+    // Refresh section dropdown
+    function refreshSectionDropdown() {
+        var classId = $('#class_id').val();
+        if (classId) {
+            // Get sections for the selected class
+            $.ajax({
+                url: '<?php echo site_url("sections/getByClass"); ?>',
+                type: 'GET',
+                data: {class_id: classId},
+                dataType: 'json',
+                success: function(data) {
+                    var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+                    var newSectionId = null;
+
+                    $.each(data, function (i, obj) {
+                        div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
+                        // Auto-select the last (newest) section
+                        if (i === data.length - 1) {
+                            newSectionId = obj.section_id;
+                        }
+                    });
+
+                    $('#section_id').html(div_data);
+
+                    // Auto-select the new section
+                    if (newSectionId) {
+                        $('#section_id').val(newSectionId);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error refreshing section dropdown:', error);
+                    // Fallback: reload the page
+                    location.reload();
+                }
+            });
+        } else {
+            // If no class selected, get all sections
+            refreshAllSections();
+        }
+    }
+
+    // Refresh all sections when no class is selected
+    function refreshAllSections() {
+        $.ajax({
+            url: '<?php echo site_url("sections/get"); ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+                var newSectionId = null;
+
+                $.each(data, function (i, obj) {
+                    div_data += "<option value=" + obj.id + ">" + obj.section + "</option>";
+                    // Auto-select the last (newest) section
+                    if (i === data.length - 1) {
+                        newSectionId = obj.id;
+                    }
+                });
+
+                $('#section_id').html(div_data);
+
+                // Auto-select the new section
+                if (newSectionId) {
+                    $('#section_id').val(newSectionId);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error refreshing all sections:', error);
+                location.reload();
+            }
+        });
+    }
+
+    // Show success alert
+    function showSuccessAlert(message) {
+        var alertHtml = '<div class="alert alert-success alert-dismissible" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        '<strong><i class="fa fa-check"></i> Success!</strong> ' + message +
+                        '</div>';
+        $('body').append(alertHtml);
+
+        // Auto remove after 3 seconds
+        setTimeout(function() {
+            $('.alert-success').fadeOut('slow', function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
+
+    // Clear errors when user types
+    $('#class_name').on('input', function() {
+        $('#class_error').text('');
+        $('#sections_error').text('');
+    });
+
+    $('#section_name').on('input', function() {
+        $('#section_error').text('');
+    });
+
+    // Clear errors when sections are selected
+    $(document).on('change', 'input[name="sections[]"]', function() {
+        $('#sections_error').text('');
+    });
+</script>
 
 <script>
 
