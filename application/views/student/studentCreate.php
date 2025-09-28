@@ -4,286 +4,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <link href="<?php echo base_url(); ?>backend/multiselect/css/jquery.multiselect.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.multiselect.js"></script>
-
-<style>
-/* Enhanced Student Form Styling */
-.student-form-container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.student-form-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px;
-    text-align: center;
-}
-
-.form-title {
-    margin: 0 0 10px 0;
-    font-size: 28px;
-    font-weight: 600;
-}
-
-.form-subtitle {
-    margin: 0;
-    opacity: 0.9;
-    font-size: 16px;
-}
-
-.student-form-content {
-    padding: 30px;
-}
-
-.form-section {
-    margin-bottom: 40px;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.section-title {
-    background: #f8f9fa;
-    margin: 0;
-    padding: 20px 25px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #495057;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.section-content {
-    padding: 25px;
-}
-
-.form-label {
-    font-weight: 600;
-    color: #495057;
-    margin-bottom: 8px;
-}
-
-.required {
-    color: #dc3545;
-}
-
-.input-group-addon {
-    background-color: #e9ecef;
-    border-color: #ced4da;
-    color: #495057;
-}
-
-.form-control {
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-    padding: 10px 15px;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
-
-.file-upload-area {
-    position: relative;
-}
-
-.file-upload-area .form-text {
-    margin-top: 5px;
-    font-style: italic;
-}
-
-.sibling-section {
-    padding: 15px 0;
-}
-
-.sibling-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.btn-outline-primary {
-    border: 2px solid #667eea;
-    color: #667eea;
-    background: transparent;
-    transition: all 0.3s ease;
-}
-
-.btn-outline-primary:hover {
-    background: #667eea;
-    color: white;
-    transform: translateY(-1px);
-}
-
-.sibling-display {
-    flex: 1;
-}
-
-.sibling-tag {
-    background: #28a745;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: inline-block;
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-    .student-form-header {
-        padding: 20px;
-    }
-
-    .form-title {
-        font-size: 24px;
-    }
-
-    .student-form-content {
-        padding: 20px;
-    }
-
-    .section-content {
-        padding: 20px;
-    }
-
-    .sibling-controls {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-}
-
-/* Form group spacing */
-.form-group {
-    margin-bottom: 20px;
-}
-
-/* Enhanced button styling */
-.box-footer {
-    background: #f8f9fa;
-    padding: 25px 30px;
-    border-top: 1px solid #e9ecef;
-    text-align: center;
-}
-
-.box-footer .btn {
-    padding: 12px 40px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
-
-.box-footer .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Alert styling */
-.alert {
-    border-radius: 8px;
-    border: none;
-    padding: 15px 20px;
-}
-
-/* Custom field improvements */
-.custom-fields-section {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-}
-
-/* Enhanced modal styling */
-.modal-content {
-    border-radius: 10px;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-    border-radius: 10px 10px 0 0;
-    border-bottom: none;
-    padding: 20px 25px;
-}
-
-.modal-title {
-    font-weight: 600;
-}
-
-.modal-body {
-    padding: 25px;
-}
-
-.modal-footer {
-    border-radius: 0 0 10px 10px;
-    border-top: 1px solid #e9ecef;
-    padding: 20px 25px;
-}
-
-/* Input group button styling */
-.input-group-btn .btn {
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-    padding: 10px 12px;
-}
-
-.input-group-btn .btn:hover {
-    z-index: 0;
-}
-
-/* Enhanced button hover effects */
-.btn-outline-success {
-    border: 2px solid #28a745;
-    color: #28a745;
-    background: transparent;
-    transition: all 0.3s ease;
-}
-
-.btn-outline-success:hover {
-    background: #28a745;
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
-}
-
-/* Form submission button styling */
-#classSubmitBtn, #sectionSubmitBtn {
-    min-width: 120px;
-}
-
-#classSubmitBtn:hover, #sectionSubmitBtn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-}
-
-/* Alert positioning */
-.alert-dismissible {
-    padding-right: 35px;
-}
-
-.alert .close {
-    right: 0;
-}
-
-/* Responsive modal improvements */
-@media (max-width: 768px) {
-    .modal-dialog {
-        margin: 10px;
-    }
-
-    .input-group-btn {
-        width: auto;
-    }
-
-    .input-group-btn .btn {
-        padding: 8px 10px;
-    }
-}
-</style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -299,15 +19,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 ?>
                     </div>
                     <form id="form1" action="<?php echo site_url('student/create') ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-                        <div class="student-form-container">
-                            <div class="student-form-header">
-                                <h3 class="form-title">
-                                    <i class="fa fa-user-plus"></i>
-                                    <?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('admission'); ?>
-                                </h3>
-                                <p class="form-subtitle">Enter student information below</p>
-                            </div>
-                            <div class="student-form-content">
+                        <div class="">
+                            <div class="bozero">
+                                <h4 class="pagetitleh-whitebg"><?php echo $this->lang->line('student'); ?> <?php echo $this->lang->line('admission'); ?> </h4>
+                                <div class="around10">
                                     <?php if ($this->session->flashdata('msg')) {
     ?>
                                         <?php
@@ -322,254 +37,402 @@ echo $this->session->flashdata('msg');
                                     <?php echo $this->customlib->getCSRF(); ?>
                                     <input type="hidden" name="sibling_name" value="<?php echo set_value('sibling_name'); ?>" id="sibling_name_next">
                                     <input type="hidden" name="sibling_id" value="<?php echo set_value('sibling_id', 0); ?>" id="sibling_id">
-                                <!-- Basic Information Section -->
-                                <div class="form-section">
-                                    <h4 class="section-title">
-                                        <i class="fa fa-info-circle"></i>
-                                        Basic Information
-                                    </h4>
-                                    <div class="section-content">
-                                        <div class="row">
-                                            <?php if (!$adm_auto_insert) {?>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="admission_no" class="form-label">
-                                                            <?php echo $this->lang->line('admission_no'); ?>
-                                                            <span class="required">*</span>
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="fa fa-hashtag"></i></span>
-                                                            <input autofocus="" id="admission_no" name="admission_no" placeholder="Enter admission number" type="text" class="form-control" value="<?php echo set_value('admission_no'); ?>" />
-                                                        </div>
-                                                        <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
-                                                    </div>
-                                                </div>
-                                            <?php }?>
-                                            <div class="col-md-4">
+                                    <div class="row">
+                                        <?php if (!$adm_auto_insert) {?>
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="class_id" class="form-label">
-                                                        <?php echo $this->lang->line('class'); ?>
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
-                                                        <select id="class_id" name="class_id" class="form-control">
-                                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                            <?php foreach ($classlist as $class) { ?>
-                                                                <option value="<?php echo $class['id'] ?>"<?php if (set_value('class_id') == $class['id']) { echo "selected=selected"; } ?>>
-                                                                    <?php echo $class['class'] ?>
-                                                                </option>
-                                                            <?php } ?>
-                                                        </select>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-outline-success btn-sm" onclick="showClassModal()" title="Create New Class">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-danger"><?php echo form_error('class_id'); ?></span>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_no'); ?></label> <small class="req"> *</small>
+                                                    <input autofocus="" id="admission_no" name="admission_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('admission_no'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                        <?php }?>
+                                        <?php if ($sch_setting->roll_no) {?>
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="section_id" class="form-label">
-                                                        <?php echo $this->lang->line('section'); ?>
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
-                                                        <select id="section_id" name="section_id" class="form-control">
-                                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                        </select>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-outline-success btn-sm" onclick="showSectionModal()" title="Create New Section">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('roll_number'); ?></label>
+                                                    <input id="roll_no" name="roll_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('roll_no'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('roll_no'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
+                                                <select  id="class_id" name="class_id" class="form-control"  >
+                                                     <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                    <?php
+foreach ($classlist as $class) {
+    ?>
+                                                        <option value="<?php echo $class['id'] ?>"<?php
+if (set_value('class_id') == $class['id']) {
+        echo "selected=selected";
+    }
+    ?>><?php echo $class['class'] ?></option>
+                                                                <?php
+}
+?>
+                                                </select>
+                                                <span class="text-danger"><?php echo form_error('class_id'); ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
+                                                <select  id="section_id" name="section_id" class="form-control" >
+                                                    <option value=""   ><?php echo $this->lang->line('select'); ?></option>
+                                                </select>
+                                                <span class="text-danger"><?php echo form_error('section_id'); ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('first_name'); ?></label><small class="req"> *</small>
+                                                <input id="firstname" name="firstname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('firstname'); ?>" />
+                                                <span class="text-danger"><?php echo form_error('firstname'); ?></span>
+                                            </div>
+                                        </div>
+                                        <?php if ($sch_setting->middlename) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('middle_name'); ?></label>
+                                                    <input id="middlename" name="middlename" placeholder="" type="text" class="form-control"  value="<?php echo set_value('middlename'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('middlename'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                        <?php if ($sch_setting->lastname) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_name'); ?></label>
+                                                    <input id="lastname" name="lastname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('lastname'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('lastname'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile"> <?php echo $this->lang->line('gender'); ?></label><small class="req"> *</small>
+                                                <select class="form-control" name="gender">
+                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                    <?php
+foreach ($genderList as $key => $value) {
+    ?>
+                                                        <option value="<?php echo $key; ?>" <?php
+if (set_value('gender') == $key) {
+        echo "selected";
+    }
+    ?>><?php echo $value; ?></option>
+                                                                <?php
+}
+?>
+                                                </select>
+                                                <span class="text-danger"><?php echo form_error('gender'); ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('date_of_birth'); ?></label><small class="req"> *</small>
+                                                <input id="dob" name="dob" placeholder="" type="text" class="form-control date"  value="<?php echo set_value('dob'); ?>" />
+                                                <span class="text-danger"><?php echo form_error('dob'); ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <?php if ($sch_setting->category) {
+    ?>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label>
+                                                    <select  id="category_id" name="category_id" class="form-control" >
+                                                        <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                        <?php foreach ($categorylist as $category) {?>
+                                                            <option value="<?php echo $category['id'] ?>" <?php
+if (set_value('category_id') == $category['id']) {
+        echo "selected=selected";
+    }
+        ?>><?php echo $category['category'] ?></option>
+        <?php $count++;
+    }
+    ?>
+                                                    </select>
+                                                    <span class="text-danger"><?php echo form_error('category_id'); ?></span>
+                                                </div>
+                                            </div>
+<?php }if ($sch_setting->religion) {?>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label>
+                                                    <input id="religion" name="religion" placeholder="" type="text" class="form-control"  value="<?php echo set_value('religion'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('religion'); ?></span>
+                                                </div>
+                                            </div>
+<?php }if ($sch_setting->cast) {?>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('caste'); ?></label>
+                                                    <input id="cast" name="cast" placeholder="" type="text" class="form-control"  value="<?php echo set_value('cast'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('cast'); ?></span>
+                                                </div>
+                                            </div>
+<?php }if ($sch_setting->mobile_no) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mobile_number'); ?></label>
+                                                    <input id="mobileno" name="mobileno" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mobileno'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('mobileno'); ?></span>
+                                                </div>
+                                            </div>
+<?php }if ($sch_setting->student_email) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
+                                                    <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('email'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                    </div>
+                                    <div class="row">
+<?php if ($sch_setting->admission_date) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_date'); ?></label>
+                                                    <input id="admission_date" name="admission_date" placeholder="" type="text" class="form-control date"  value="<?php echo set_value('admission_date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
+                                                    <span class="text-danger"><?php echo form_error('admission_date'); ?></span>
+                                                </div>
+                                            </div>
+<?php }if ($sch_setting->student_photo) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputFile"><?php echo $this->lang->line('student_photo'); ?></label>
+                                                    <div><input class="filestyle form-control" type='file' name='file' id="file" size='20' />
                                                     </div>
-                                                    <span class="text-danger"><?php echo form_error('section_id'); ?></span>
+                                                    <span class="text-danger"><?php echo form_error('file'); ?></span></div>
+                                            </div>
+                                            <?php
+}
+if ($sch_setting->is_blood_group) {
+    ?>
+                                            <div class="col-md-3 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('blood_group'); ?></label>
+                                                        <?php
+?>
+                                                    <select class="form-control" rows="3" placeholder="" name="blood_group">
+                                                        <option value=""><?php echo $this->lang->line('select') ?></option>
+                                                        <?php foreach ($bloodgroup as $bgkey => $bgvalue) {
+        ?>
+                                                            <option value="<?php echo $bgvalue ?>"><?php echo $bgvalue ?></option>
+
+    <?php }?>
+                                                    </select>
+                                                    <span class="text-danger"><?php echo form_error('blood_group'); ?></span>
+                                                </div>
+                                            </div>
+                                            <?php
+}
+if ($sch_setting->is_student_house) {
+    ?>
+                                            <div class="col-md-3 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label>
+                                                    <select class="form-control" rows="3" placeholder="" name="house">
+                                                        <option value=""><?php echo $this->lang->line('select') ?></option>
+                                                        <?php foreach ($houses as $hkey => $hvalue) {
+        ?>
+                                                            <option value="<?php echo $hvalue["id"] ?>"><?php echo $hvalue["house_name"] ?></option>
+
+    <?php }?>
+                                                    </select>
+                                                    <span class="text-danger"><?php echo form_error('house'); ?></span>
+                                                </div>
+                                            </div>
+
+    <?php
+}
+?>
+
+</div>
+<div class="row">
+                                                <?php if ($sch_setting->student_height) {?>
+                                            <div class="col-md-3 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('height'); ?></label>
+    <?php ?>
+                                                    <input type="text" name="height" class="form-control" value="<?php echo set_value('height'); ?>" >
+                                                    <span class="text-danger"><?php echo form_error('height'); ?></span>
+                                                </div>
+                                            </div>
+                                                <?php }if ($sch_setting->student_weight) {?>
+                                            <div class="col-md-3 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('weight'); ?></label>
+    <?php ?>
+                                                    <input type="text" name="weight" class="form-control" value="<?php echo set_value('weight'); ?>">
+                                                    <span class="text-danger"><?php echo form_error('weight'); ?></span>
+                                                </div>
+                                            </div>
+<?php }if ($sch_setting->measurement_date) {?>
+                                            <div class="col-md-3 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('measurement_date'); ?></label>
+    <?php ?>
+                                                    <input type="text" id="measure_date" value="<?php echo set_value('measure_date', date($this->customlib->getSchoolDateFormat())); ?>" name="measure_date" class="form-control date">
+                                                    <span class="text-danger"><?php echo form_error('measure_date'); ?></span>
+                                                </div>
+                                            </div>
+<?php }?>
+                                        <div class="col-md-3" style="display:none;">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('fees_discount'); ?></label>
+                                                <input id="fees_discount" name="fees_discount" placeholder="" type="text" class="form-control"  value="<?php echo set_value('fees_discount', 0); ?>"  />
+                                                <span class="text-danger"><?php echo form_error('fees_discount'); ?></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 pt25">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <button type="button" class="btn btn-sm mysiblings anchorbtn "><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_sibling'); ?></button>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div id='sibling_id' class="pt6"> <span id="sibling_name" class="label label-success "><?php echo set_value('sibling_name'); ?></span></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Personal Information Section -->
-                                <div class="form-section">
-                                    <h4 class="section-title">
-                                        <i class="fa fa-user"></i>
-                                        Personal Information
-                                    </h4>
-                                    <div class="section-content">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="firstname" class="form-label">
-                                                        <?php echo $this->lang->line('first_name'); ?>
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                                        <input id="firstname" name="firstname" placeholder="Enter first name" type="text" class="form-control" value="<?php echo set_value('firstname'); ?>" />
-                                                    </div>
-                                                    <span class="text-danger"><?php echo form_error('firstname'); ?></span>
-                                                </div>
-                                            </div>
-                                            <?php if ($sch_setting->middlename) {?>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="middlename" class="form-label">
-                                                            <?php echo $this->lang->line('middle_name'); ?>
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                                            <input id="middlename" name="middlename" placeholder="Enter middle name" type="text" class="form-control" value="<?php echo set_value('middlename'); ?>" />
-                                                        </div>
-                                                        <span class="text-danger"><?php echo form_error('middlename'); ?></span>
-                                                    </div>
-                                                </div>
-                                            <?php }?>
-                                            <?php if ($sch_setting->lastname) {?>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="lastname" class="form-label">
-                                                            <?php echo $this->lang->line('last_name'); ?>
-                                                        </label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                                            <input id="lastname" name="lastname" placeholder="Enter last name" type="text" class="form-control" value="<?php echo set_value('lastname'); ?>" />
-                                                        </div>
-                                                        <span class="text-danger"><?php echo form_error('lastname'); ?></span>
-                                                    </div>
-                                                </div>
-                                            <?php }?>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="gender" class="form-label">
-                                                        <?php echo $this->lang->line('gender'); ?>
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
-                                                        <select class="form-control" name="gender">
-                                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                            <?php foreach ($genderList as $key => $value) { ?>
-                                                                <option value="<?php echo $key; ?>" <?php if (set_value('gender') == $key) { echo "selected"; } ?>>
-                                                                    <?php echo $value; ?>
-                                                                </option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                    <span class="text-danger"><?php echo form_error('gender'); ?></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="dob" class="form-label">
-                                                        <?php echo $this->lang->line('date_of_birth'); ?>
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                        <input id="dob" name="dob" placeholder="Select date of birth" type="text" class="form-control date" value="<?php echo set_value('dob'); ?>" />
-                                                    </div>
-                                                    <span class="text-danger"><?php echo form_error('dob'); ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="row">
+                                        <?php
+echo display_custom_fields('students');
+?>
                                     </div>
-                                </div>
-                                         <div class="row">
-                                             <?php if ($sch_setting->mobile_no) {?>
-                                                 <div class="col-md-4">
-                                                     <div class="form-group">
-                                                         <label for="mobileno" class="form-label">
-                                                             <?php echo $this->lang->line('mobile_number'); ?>
-                                                         </label>
-                                                         <div class="input-group">
-                                                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                                             <input id="mobileno" name="mobileno" placeholder="Enter mobile number" type="text" class="form-control" value="<?php echo set_value('mobileno'); ?>" />
-                                                         </div>
-                                                         <span class="text-danger"><?php echo form_error('mobileno'); ?></span>
-                                                     </div>
-                                                 </div>
-                                             <?php }?>
-                                             <?php if ($sch_setting->student_email) {?>
-                                                 <div class="col-md-4">
-                                                     <div class="form-group">
-                                                         <label for="email" class="form-label">
-                                                             <?php echo $this->lang->line('email'); ?>
-                                                         </label>
-                                                         <div class="input-group">
-                                                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                                             <input id="email" name="email" placeholder="Enter email address" type="text" class="form-control" value="<?php echo set_value('email'); ?>" />
-                                                         </div>
-                                                         <span class="text-danger"><?php echo form_error('email'); ?></span>
-                                                     </div>
-                                                 </div>
-                                             <?php }?>
-                                             <?php if ($sch_setting->admission_date) {?>
-                                                 <div class="col-md-4">
-                                                     <div class="form-group">
-                                                         <label for="admission_date" class="form-label">
-                                                             <?php echo $this->lang->line('admission_date'); ?>
-                                                         </label>
-                                                         <div class="input-group">
-                                                             <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
-                                                             <input id="admission_date" name="admission_date" placeholder="" type="text" class="form-control date" value="<?php echo set_value('admission_date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
-                                                         </div>
-                                                         <span class="text-danger"><?php echo form_error('admission_date'); ?></span>
-                                                     </div>
-                                                 </div>
-                                             <?php }?>
-                                         </div>
-                                         <div class="row">
-                                             <?php if ($sch_setting->student_photo) {?>
-                                                 <div class="col-md-6">
-                                                     <div class="form-group">
-                                                         <label for="file" class="form-label">
-                                                             <?php echo $this->lang->line('student_photo'); ?>
-                                                         </label>
-                                                         <div class="file-upload-area">
-                                                             <input class="filestyle form-control" type='file' name='file' id="file" size='20' />
-                                                             <small class="form-text text-muted">Upload a clear photo of the student (JPG, PNG, max 2MB)</small>
-                                                         </div>
-                                                         <span class="text-danger"><?php echo form_error('file'); ?></span>
-                                                     </div>
-                                                 </div>
-                                             <?php }?>
-                                             <div class="col-md-6">
-                                                 <div class="sibling-section">
-                                                     <label class="form-label">Siblings</label>
-                                                     <div class="sibling-controls">
-                                                         <button type="button" class="btn btn-outline-primary btn-sm" onclick="showSiblingModal()">
-                                                             <i class="fa fa-plus"></i> <?php echo $this->lang->line('add_sibling'); ?>
-                                                         </button>
-                                                         <div id='sibling_id' class="sibling-display">
-                                                             <span id="sibling_name" class="sibling-tag"><?php echo set_value('sibling_name'); ?></span>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                <!-- Custom Fields Section -->
-                                <div class="form-section custom-fields-section">
-                                    <h4 class="section-title">
-                                        <i class="fa fa-cogs"></i>
-                                        Additional Information
-                                    </h4>
-                                    <div class="section-content">
-                                        <div class="row">
-                                            <?php echo display_custom_fields('students'); ?>
-                                        </div>
-                                    </div>
-                                </div>
                                 </div>
                                 </div>
                             </div>
+                         <?php if ($sch_setting->route_list) {
+    ?>
+                                            <?php
+if ($this->module_lib->hasActive('transport')) {
+        ?>
+                                                <div class="bozero">
+                                                    <h4 class="pagetitleh2">
+        <?php echo $this->lang->line('transport_details'); ?>
+                                                    </h4>
+
+                                                    <div class="row around10">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('route_list'); ?></label>
+                                                                <select  class="form-control" id="vehroute_id" name="vehroute_id">
+
+                                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                                    <?php
+foreach ($vehroutelist as $vehroute) {
+            ?>
+                                                                        <optgroup label=" <?php echo $vehroute['route_title']; ?>">
+                                                                            <?php
+$vehicles = $vehroute['vehicles'];
+            if (!empty($vehicles)) {
+                foreach ($vehicles as $key => $value) {
+                    ?>
+
+                                                                                    <option value="<?php echo $value->vec_route_id ?>" <?php echo set_select('vehroute_id', $value->vec_route_id); ?> data-fee="">
+                                                                                    <?php echo $value->vehicle_no ?>
+                                                                                    </option>
+                                                                                    <?php
+}
+            }
+            ?>
+                                                                        </optgroup>
+                                                                        <?php
+}
+        ?>
+                                                                </select>
+                                    <span class="text-danger"><?php echo form_error('vehroute_id'); ?></span>
+                                                            </div>
+                                                        </div>
+                                                         <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('pickup_point'); ?></label>
+                                                                <select  class="form-control" id="pickup_point" name="route_pickup_point_id">
+
+                                                                </select>
+
+                             <span class="text-danger"><?php echo form_error('route_pickup_point_id'); ?></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('fees_month'); ?></label>
+
+                                <select class="form-control" id="transport_feemaster_id" name="transport_feemaster_id[]" multiple="multiple" >
+
+                                                                    <?php
+foreach ($transport_fees as $key => $value) {
+            ?>
+                                                                        <option <?php echo set_select('transport_feemaster_id[]', $value['id']); ?> value="<?php echo $value['id']; ?>"> <?php echo $this->lang->line(strtolower($value['month'])); ?></option>
+                                                                        <?php
+}
+        ?>
+
+                                                                </select>
+
+                     <span class="text-danger"><?php echo form_error('transport_feemaster_id[]'); ?></span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php }?>
+                                            <?php
+if ($this->module_lib->hasActive('hostel')) {
+        ?>
+        <?php if ($sch_setting->hostel_id) {
+            ?>
+                                                    <div class="bozero">
+                                                        <h4 class="pagetitleh2">
+            <?php echo $this->lang->line('hostel_details'); ?></label></label>
+                                                        </h4>
+
+                                                        <div class="row around10">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('hostel'); ?></label>
+
+                                                                    <select class="form-control" id="hostel_id" name="hostel_id">
+
+                                                                        <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                                        <?php
+foreach ($hostelList as $hostel_key => $hostel_value) {
+                ?>
+
+                                                                            <option value="<?php echo $hostel_value['id'] ?>" <?php echo set_select('hostel_id', $hostel_value['id']); ?>>
+                                                                            <?php echo $hostel_value['hostel_name']; ?>
+                                                                            </option>
+                                                                            <?php
+}
+            ?>
+                                                                    </select>
+                                                                    <span class="text-danger"><?php echo form_error('hostel_id'); ?></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('room_no'); ?></label>
+                                                                    <select  id="hostel_room_id" name="hostel_room_id" class="form-control" >
+                                                                        <option value=""   ><?php echo $this->lang->line('select'); ?></option>
+                                                                    </select>
+                                                                    <span class="text-danger"><?php echo form_error('hostel_room_id'); ?></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php }?> <?php }
+}
+?>
                          <div class="mainstudent">
                              <div id="fade"></div>
                         <div id="modal">
@@ -1051,80 +914,6 @@ echo set_value('rte') == "no" ? "checked" : "";
         </div>
     </div>
 </section>
-
-<!-- Class Creation Modal -->
-<div class="modal fade" id="classModal" role="dialog">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
-                <h4 class="modal-title">
-                    <i class="fa fa-graduation-cap"></i>
-                    <?php echo $this->lang->line('create_class'); ?>
-                </h4>
-            </div>
-            <form id="classForm">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="class_name"><?php echo $this->lang->line('class_name'); ?><span class="required">*</span></label>
-                                <input type="text" class="form-control" id="class_name" name="class" required placeholder="Ex: Informatique, Mathématiques">
-                                <span class="text-danger" id="class_error"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label><?php echo $this->lang->line('sections'); ?><span class="required">*</span></label>
-                                <div id="sectionsContainer">
-                                    <!-- Sections will be loaded here via AJAX -->
-                                </div>
-                                <span class="text-danger" id="sections_error"></span>
-                                <small class="text-muted">Select existing sections to associate with this class</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
-                    <button type="submit" class="btn btn-success" id="classSubmitBtn">
-                        <i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Section Creation Modal -->
-<div class="modal fade" id="sectionModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
-                <h4 class="modal-title">
-                    <i class="fa fa-sitemap"></i>
-                    <?php echo $this->lang->line('create_section'); ?>
-                </h4>
-            </div>
-            <form id="sectionForm">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="section_name"><?php echo $this->lang->line('section_name'); ?><span class="required">*</span></label>
-                        <input type="text" class="form-control" id="section_name" name="section" required placeholder="Ex: Licence 1, Master 2, etc.">
-                        <span class="text-danger" id="section_error"></span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
-                    <button type="submit" class="btn btn-success" id="sectionSubmitBtn">
-                        <i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 </div>
 
 <div class="modal fade" id="mySiblingModal" role="dialog">
@@ -1213,11 +1002,7 @@ $count++;
         $(document).on('change', '#class_id', function (e) {
             $('#section_id').html("");
             var class_id = $(this).val();
-            if (class_id) {
-                getSectionByClass(class_id, 0);
-            } else {
-                $('#section_id').html('<option value=""><?php echo $this->lang->line('select'); ?></option>');
-            }
+            getSectionByClass(class_id, 0);
         });
 
         $(".color").colorpicker();
@@ -1263,12 +1048,7 @@ if (($userdata["role_id"] == 2)) {
                             }
                             div_data += "<option value=" + obj.section_id + " " + sel + ">" + obj.section + "</option>";
                         });
-                        $('#section_id').html(div_data);
-
-                        // Auto-select first section if no specific section was requested and we have sections
-                        if (section_id == 0 && data.length > 0) {
-                            $('#section_id').val(data[0].section_id);
-                        }
+                        $('#section_id').append(div_data);
                     },
                     complete: function () {
                         $('#section_id').removeClass('dropdownloading');
@@ -1398,386 +1178,15 @@ if (($userdata["role_id"] == 2)) {
 </script>
 
 <script type="text/javascript">
-     // Enhanced sibling modal functionality
-     function showSiblingModal() {
-         $('.sibling_msg').html("");
-         $('.modal_title').html('<b>' + "<?php echo $this->lang->line('add_sibling'); ?>" + '</b>');
-         $('#mySiblingModal').modal({
-             backdrop: 'static',
-             keyboard: false,
-             show: true
-         });
-     }
-
-     // Class modal functionality
-     function showClassModal() {
-         // Load existing sections first
-         loadExistingSections();
-
-         $('#classModal').modal({
-             backdrop: 'static',
-             keyboard: false,
-             show: true
-         });
-         $('#class_name').focus();
-     }
-
-     // Load existing sections for class creation
-     function loadExistingSections() {
-         $.ajax({
-             url: '<?php echo site_url("sections/get"); ?>',
-             type: 'GET',
-             dataType: 'json',
-             success: function(data) {
-                 var sectionsHtml = '';
-
-                 if (data.length === 0) {
-                     sectionsHtml = '<div class="alert alert-warning">' +
-                                   '<i class="fa fa-exclamation-triangle"></i> ' +
-                                   '<strong>No sections found:</strong> Please create sections first using the ' +
-                                   '<button type="button" class="btn btn-sm btn-primary" onclick="$(\'#sectionModal\').modal(\'show\'); $(\'#classModal\').modal(\'hide\');">Create Section</button> ' +
-                                   'button above, then come back to create classes.' +
-                                   '</div>' +
-                                   '<p class="text-muted"><em>Sections are required before creating classes.</em></p>';
-                 } else {
-                     sectionsHtml = '<div class="row">';
-                     $.each(data, function(index, section) {
-                         sectionsHtml += '<div class="col-md-6">';
-                         sectionsHtml += '<div class="checkbox">';
-                         sectionsHtml += '<label>';
-                         sectionsHtml += '<input type="checkbox" name="sections[]" value="' + section.id + '" /> ' + section.section;
-                         sectionsHtml += '</label>';
-                         sectionsHtml += '</div>';
-                         sectionsHtml += '</div>';
-                     });
-                     sectionsHtml += '</div>';
-                 }
-
-                 $('#sectionsContainer').html(sectionsHtml);
-             },
-             error: function(xhr, status, error) {
-                 console.error('Error loading sections:', error);
-                 var errorHtml = '<div class="alert alert-danger">' +
-                                 '<i class="fa fa-exclamation-circle"></i> ' +
-                                 'Error loading sections. Please try again.' +
-                                 '</div>';
-                 $('#sectionsContainer').html(errorHtml);
-             }
-         });
-     }
-
-     // Section modal functionality
-     function showSectionModal() {
-         $('#sectionModal').modal({
-             backdrop: 'static',
-             keyboard: false,
-             show: true
-         });
-         $('#section_name').focus();
-     }
-
-
-     // Handle class form submission
-     $('#classForm').on('submit', function(e) {
-         e.preventDefault();
-
-         var className = $('#class_name').val().trim();
-         var selectedSections = $('input[name="sections[]"]:checked');
-
-         if (!className) {
-             $('#class_error').text('Class name is required');
-             return;
-         }
-
-         if (selectedSections.length === 0) {
-             $('#sections_error').text('Please select at least one section');
-             return;
-         }
-
-         $('#classSubmitBtn').html('<i class="fa fa-spinner fa-spin"></i> Creating...').prop('disabled', true);
-         $('#class_error').text('');
-         $('#sections_error').text('');
-
-         // Prepare form data
-         var formData = new FormData(this);
-         formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', '<?php echo $this->security->get_csrf_hash(); ?>');
-
-         $.ajax({
-             url: '<?php echo site_url("classes"); ?>',
-             type: 'POST',
-             data: formData,
-             processData: false,
-             contentType: false,
-             success: function(response) {
-                 var newClassName = $('#class_name').val().trim();
-
-                 // Refresh class dropdown and auto-select new class
-                 refreshClassDropdown(function() {
-                     autoSelectNewClassAndSection(newClassName);
-                 });
-
-                 // Close modal and reset form
-                 $('#classModal').modal('hide');
-                 $('#classForm')[0].reset();
-                 loadExistingSections();
-
-                 // Show success message
-                 showSuccessAlert('Class created successfully!');
-             },
-             error: function(xhr, status, error) {
-                 if (xhr.responseText) {
-                     var errorMsg = 'Error creating class. Please try again.';
-                     try {
-                         var response = JSON.parse(xhr.responseText);
-                         if (response.error) {
-                             errorMsg = response.error;
-                         }
-                     } catch (e) {}
-                     $('#class_error').text(errorMsg);
-                 } else {
-                     $('#class_error').text('Error creating class. Please try again.');
-                 }
-                 console.error('Class creation error:', error);
-             },
-             complete: function() {
-                 $('#classSubmitBtn').html('<i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>').prop('disabled', false);
-             }
-         });
-     });
-
-     // Handle section form submission
-     $('#sectionForm').on('submit', function(e) {
-         e.preventDefault();
-
-         var sectionName = $('#section_name').val().trim();
-         if (!sectionName) {
-             $('#section_error').text('Section name is required');
-             return;
-         }
-
-         $('#sectionSubmitBtn').html('<i class="fa fa-spinner fa-spin"></i> Creating...').prop('disabled', true);
-         $('#section_error').text('');
-
-         // Prepare form data with CSRF token
-         var formData = new FormData(this);
-         formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', '<?php echo $this->security->get_csrf_hash(); ?>');
-
-         $.ajax({
-             url: '<?php echo site_url("sections/index"); ?>',
-             type: 'POST',
-             data: formData,
-             processData: false,
-             contentType: false,
-             success: function(response) {
-                 var newSectionName = $('#section_name').val().trim();
-
-                 // Refresh section dropdown and auto-select the new section
-                 var currentClassId = $('#class_id').val();
-                 if (currentClassId) {
-                     // Reload sections for current class and auto-select the new one
-                     $.ajax({
-                         url: '<?php echo site_url("sections/getByClass"); ?>',
-                         type: 'GET',
-                         data: {class_id: currentClassId},
-                         dataType: 'json',
-                         success: function(data) {
-                             var sectionHtml = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                             var newSectionSelected = false;
-
-                             $.each(data, function(i, obj) {
-                                 var selected = '';
-                                 if (!newSectionSelected && obj.section.trim() === newSectionName.trim()) {
-                                     selected = 'selected';
-                                     newSectionSelected = true;
-                                 }
-                                 sectionHtml += '<option value="' + obj.section_id + '" ' + selected + '>' + obj.section + '</option>';
-                             });
-
-                             $('#section_id').html(sectionHtml);
-                         },
-                         error: function(xhr, status, error) {
-                             console.error('Error refreshing section dropdown:', error);
-                         }
-                     });
-                 }
-
-                 // Close modal and reset form
-                 $('#sectionModal').modal('hide');
-                 $('#sectionForm')[0].reset();
-
-                 // Show success message
-                 showSuccessAlert('Section created successfully!');
-             },
-             error: function(xhr, status, error) {
-                 if (xhr.responseText) {
-                     var errorMsg = 'Error creating section. Please try again.';
-                     try {
-                         var response = JSON.parse(xhr.responseText);
-                         if (response.error) {
-                             errorMsg = response.error;
-                         }
-                     } catch (e) {}
-                     $('#section_error').text(errorMsg);
-                 } else {
-                     $('#section_error').text('Error creating section. Please try again.');
-                 }
-                 console.error('Section creation error:', error);
-             },
-             complete: function() {
-                 $('#sectionSubmitBtn').html('<i class="fa fa-plus"></i> <?php echo $this->lang->line('create'); ?>').prop('disabled', false);
-             }
-         });
-     });
-
-     // Refresh class dropdown
-     function refreshClassDropdown(callback) {
-         $.ajax({
-             url: '<?php echo site_url("classes/get"); ?>',
-             type: 'GET',
-             dataType: 'json',
-             success: function(data) {
-                 var classDropdown = $('#class_id');
-                 var currentSelected = classDropdown.val();
-
-                 classDropdown.html('<option value=""><?php echo $this->lang->line('select'); ?></option>');
-
-                 $.each(data, function(index, classItem) {
-                     var selected = (currentSelected == classItem.id) ? 'selected' : '';
-                     classDropdown.append('<option value="' + classItem.id + '" ' + selected + '>' + classItem.class + '</option>');
-                 });
-
-                 // Execute callback if provided
-                 if (callback && typeof callback === 'function') {
-                     callback();
-                 }
-             },
-             error: function(xhr, status, error) {
-                 console.error('Error refreshing class dropdown:', error);
-                 // Fallback: reload the page
-                 location.reload();
-             }
-         });
-     }
-
-     // Refresh section dropdown
-     function refreshSectionDropdown(autoSelectFirst) {
-         var classId = $('#class_id').val();
-         if (classId) {
-             // Get sections for the selected class
-             $.ajax({
-                 url: '<?php echo site_url("sections/getByClass"); ?>',
-                 type: 'GET',
-                 data: {class_id: classId},
-                 dataType: 'json',
-                 success: function(data) {
-                     var sectionHtml = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                     $.each(data, function(i, obj) {
-                         sectionHtml += '<option value="' + obj.section_id + '">' + obj.section + '</option>';
-                     });
-                     $('#section_id').html(sectionHtml);
-
-                     // Auto-select first section if requested and available
-                     if (autoSelectFirst && data.length > 0) {
-                         $('#section_id').val(data[0].section_id);
-                     }
-                 },
-                 error: function(xhr, status, error) {
-                     console.error('Error refreshing section dropdown:', error);
-                     $('#section_id').html('<option value=""><?php echo $this->lang->line('select'); ?></option>');
-                 }
-             });
-         } else {
-             $('#section_id').html('<option value=""><?php echo $this->lang->line('select'); ?></option>');
-         }
-     }
-
-     // Auto-select class and section after creation
-     function autoSelectNewClassAndSection(className) {
-         setTimeout(function() {
-             // Find and select the newly created class
-             var classFound = false;
-             $('#class_id option').each(function() {
-                 if ($(this).text().trim() === className.trim()) {
-                     $('#class_id').val($(this).val());
-                     classFound = true;
-                     $('#class_id').trigger('change');
-                     return false; // Break the loop
-                 }
-             });
-
-             if (classFound) {
-                 // Auto-select first section after a short delay
-                 setTimeout(function() {
-                     var firstSection = $('#section_id option').eq(1); // Get first real option (skip placeholder)
-                     if (firstSection.length > 0) {
-                         $('#section_id').val(firstSection.val());
-                     }
-                 }, 500);
-             }
-         }, 200);
-     }
-
-     // Show success alert
-     function showSuccessAlert(message) {
-         var alertHtml = '<div class="alert alert-success alert-dismissible" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">' +
-                         '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                         '<strong><i class="fa fa-check"></i> Success!</strong> ' + message +
-                         '</div>';
-         $('body').append(alertHtml);
-
-         // Auto remove after 3 seconds
-         setTimeout(function() {
-             $('.alert-success').fadeOut('slow', function() {
-                 $(this).remove();
-             });
-         }, 3000);
-     }
-
-     // Clear errors when user types
-     $('#class_name').on('input', function() {
-         $('#class_error').text('');
-         $('#sections_error').text('');
-     });
-
-     $('#section_name').on('input', function() {
-         $('#section_error').text('');
-     });
-
-     // Clear errors when sections are selected
-     $(document).on('change', 'input[name="sections[]"]', function() {
-         $('#sections_error').text('');
-     });
-
-     $(".mysiblings").click(function () {
-         showSiblingModal();
-     });
-
-     // Form validation enhancement
-     $(document).ready(function() {
-         // Add smooth scrolling to form sections
-         $('a[href^="#"]').on('click', function(event) {
-             var target = $(this.getAttribute('href'));
-             if(target.length) {
-                 event.preventDefault();
-                 $('html, body').stop().animate({
-                     scrollTop: target.offset().top - 100
-                 }, 1000);
-             }
-         });
-
-         // Enhanced form validation feedback
-         $('.form-control').on('blur', function() {
-             var $field = $(this);
-             if ($field.val() && !$field.hasClass('is-valid')) {
-                 $field.addClass('is-valid');
-             }
-         });
-
-         // Auto-hide alerts after 5 seconds
-         setTimeout(function() {
-             $('.alert').fadeOut('slow');
-         }, 5000);
-     });
+    $(".mysiblings").click(function () {
+        $('.sibling_msg').html("");
+        $('.modal_title').html('<b>' + "<?php echo $this->lang->line('add_sibling'); ?>" + '</b>');
+        $('#mySiblingModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    });
 </script>
 
 <script type="text/javascript">

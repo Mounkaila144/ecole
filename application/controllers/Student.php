@@ -749,10 +749,9 @@ class Student extends Admin_Controller
                     $this->student_model->add($update_student);
                 }
 
-                $upload_dir_path  = $this->customlib->getFolderPath() . './uploads/student_documents/' . $insert_id . '/';
                 $upload_directory = './uploads/student_documents/' . $insert_id . '/';
-                if (!is_dir($upload_dir_path) && !mkdir($upload_dir_path)) {
-                    die("Error creating folder $upload_dir_path");
+                if (!is_dir($upload_directory) && !mkdir($upload_directory, 0777, true)) {
+                    die("Error creating folder $upload_directory");
                 }
 
                 if (isset($_FILES["first_doc"]) && !empty($_FILES['first_doc']['name'])) {
@@ -826,10 +825,10 @@ class Student extends Admin_Controller
         } else {
             $student_id = $this->input->post('student_id');
             if (isset($_FILES["first_doc"]) && !empty($_FILES['first_doc']['name'])) {
-                $upload_dir_path = $this->customlib->getFolderPath() . './uploads/student_documents/' . $student_id . '/';
+                $upload_directory = './uploads/student_documents/' . $student_id . '/';
 
-                if (!is_dir($upload_dir_path) && !mkdir($upload_dir_path)) {
-                    die("Error creating folder $upload_dir_path");
+                if (!is_dir($upload_directory) && !mkdir($upload_directory, 0777, true)) {
+                    die("Error creating folder $upload_directory");
                 }
 
                 $fileInfo    = pathinfo($_FILES["first_doc"]["name"]);
@@ -1375,7 +1374,7 @@ class Student extends Admin_Controller
             $class_id              = $this->input->post('class_id');
             $section_id            = $this->input->post('section_id');
             $hostel_room_id        = $this->input->post('hostel_room_id');
-            $fees_discount         = $this->input->post('fees_discount');
+            $fees_discount         = $this->input->post('fees_discount') ?: 0;
             $route_pickup_point_id = $this->input->post('route_pickup_point_id');
 
             if (empty($route_pickup_point_id)) {
