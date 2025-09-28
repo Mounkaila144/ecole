@@ -143,7 +143,7 @@ if (set_value('gender') == $key) {
                                     <div class="row">
                                         <?php if ($sch_setting->category) {
     ?>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label>
                                                     <select  id="category_id" name="category_id" class="form-control" >
@@ -162,7 +162,7 @@ if (set_value('category_id') == $category['id']) {
                                                 </div>
                                             </div>
 <?php }if ($sch_setting->religion) {?>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label>
                                                     <input id="religion" name="religion" placeholder="" type="text" class="form-control"  value="<?php echo set_value('religion'); ?>" />
@@ -170,7 +170,7 @@ if (set_value('category_id') == $category['id']) {
                                                 </div>
                                             </div>
 <?php }if ($sch_setting->cast) {?>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('caste'); ?></label>
                                                     <input id="cast" name="cast" placeholder="" type="text" class="form-control"  value="<?php echo set_value('cast'); ?>" />
@@ -217,7 +217,7 @@ if (set_value('category_id') == $category['id']) {
 if ($sch_setting->is_blood_group) {
     ?>
                                             <div class="col-md-3 col-xs-12">
-                                                <div class="form-group">
+                                                <div class="form-group" style="display: none">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('blood_group'); ?></label>
                                                         <?php
 ?>
@@ -236,7 +236,7 @@ if ($sch_setting->is_blood_group) {
 }
 if ($sch_setting->is_student_house) {
     ?>
-                                            <div class="col-md-3 col-xs-12">
+                                            <div class="col-md-3 col-xs-12" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label>
                                                     <select class="form-control" rows="3" placeholder="" name="house">
@@ -258,7 +258,7 @@ if ($sch_setting->is_student_house) {
 </div>
 <div class="row">
                                                 <?php if ($sch_setting->student_height) {?>
-                                            <div class="col-md-3 col-xs-12">
+                                            <div class="col-md-3 col-xs-12" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('height'); ?></label>
     <?php ?>
@@ -267,7 +267,7 @@ if ($sch_setting->is_student_house) {
                                                 </div>
                                             </div>
                                                 <?php }if ($sch_setting->student_weight) {?>
-                                            <div class="col-md-3 col-xs-12">
+                                            <div class="col-md-3 col-xs-12" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('weight'); ?></label>
     <?php ?>
@@ -276,7 +276,7 @@ if ($sch_setting->is_student_house) {
                                                 </div>
                                             </div>
 <?php }if ($sch_setting->measurement_date) {?>
-                                            <div class="col-md-3 col-xs-12">
+                                            <div class="col-md-3 col-xs-12" style="display: none">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('measurement_date'); ?></label>
     <?php ?>
@@ -392,7 +392,7 @@ if ($this->module_lib->hasActive('hostel')) {
         ?>
         <?php if ($sch_setting->hostel_id) {
             ?>
-                                                    <div class="bozero">
+                                                    <div class="bozero" style="display: none">
                                                         <h4 class="pagetitleh2">
             <?php echo $this->lang->line('hostel_details'); ?></label></label>
                                                         </h4>
@@ -439,9 +439,9 @@ foreach ($hostelList as $hostel_key => $hostel_value) {
 
                             <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span class="sr-only">Loading...</span>
                             <img id="loader" src="<?php //echo base_url('backend/images/chatloading.gif'); ?>">
-                        </div>
+                        </div>>
 
-                        <h4 class="pagetitleh2">
+                        <h4 class="pagetitleh2" style="display: none">
             <?php echo $this->lang->line('fees_details'); ?>
             <span class="float-right bmedium total_fees_alloted">
              <?php
