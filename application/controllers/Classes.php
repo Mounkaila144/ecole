@@ -153,11 +153,7 @@ class Classes extends Admin_Controller
 
     public function get()
     {
-        $this->db->select('classes.id, classes.class');
-        $this->db->from('classes');
-        $this->db->order_by('classes.class', 'ASC');
-        $query = $this->db->get();
-        $classes = $query->result_array();
+        $classes = $this->classsection_model->getByID();
         echo json_encode($classes);
     }
 
