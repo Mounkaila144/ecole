@@ -1,0 +1,19 @@
+# Permettre l'accès aux fichiers React
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+
+# Configuration des headers pour les fichiers JavaScript modules
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|mjs)$">
+        Header set Content-Type "application/javascript"
+    </FilesMatch>
+    <FilesMatch "\.css$">
+        Header set Content-Type "text/css"
+    </FilesMatch>
+</IfModule>
+
+# Activer la compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript text/javascript
+</IfModule>
