@@ -49,30 +49,17 @@ class Welcome extends Front_Controller
 
     public function index()
     {
-        $menu_list                = $this->cms_menu_model->getBySlug('main-menu');
-        $this->data['main_menus'] = $this->cms_menuitems_model->getMenus($menu_list['id']);
+        // Configuration minimale pour la page React
+        $this->data['page'] = array(
+            'title' => 'Elegant Higher Education Website',
+            'meta_title' => 'Elegant Higher Education Website',
+            'meta_keyword' => 'education, école, formation',
+            'meta_description' => 'Plateforme éducative moderne'
+        );
 
-        reset($this->data['main_menus']);
-        $setting_data                 = $this->setting_model->get();
-        $first_key                    = key($this->data['main_menus']);
-        $home_page_slug               = $this->data['main_menus'][$first_key]['page_slug'];
-        $setting                      = $this->frontcms_setting_model->get();
-        $this->data['active_menu']    = $home_page_slug;
-        $this->data['page_side_bar']  = $setting->is_active_sidebar;
-        $this->data['cookie_consent'] = $setting->cookie_consent;
-        $result                       = $this->cms_program_model->getByCategory($this->banner_content);
-        $this->data['page']           = $this->cms_page_model->getBySlug($home_page_slug);
-        if (!empty($result)) {
-            $this->data['banner_images'] = $this->cms_program_model->front_cms_program_photos($result[0]['id']);
-        }
-        $this->data['setting_data'] = $setting_data;
-        
-        if ($this->module_lib->hasModule('online_course')) {
-            $this->load->model('course_model');
-            $this->data['course_setting'] = $this->course_model->getOnlineCourseSettings();
-        }
-        
-        $this->load_theme('home');
+        // Charger la vue React avec un layout minimal
+        $this->data['content'] = $this->load->view('themes/default/home', $this->data, true);
+        $this->load->view('themes/default/react_layout', $this->data);
     }
 
     public function page($slug)
